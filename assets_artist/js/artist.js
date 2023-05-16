@@ -28,11 +28,9 @@ window.onload = () => {
 
 
     document.getElementById('play').onclick = () => {
-        if(tracks){
-            clearInterval(tracks);
-        }else{
+        
         playAll();
-        }
+       
     };
 };
 
@@ -133,19 +131,36 @@ function Sound(source, volume, loop)
         this.son.addEventListener('ended', action);
     }
 
+    this.restart = function(){
+        this.son.play();
+    }
+
+    this.pause = function(){
+        this.son.pause();
+    }
+
     this.stop = function()
     {
-        document.body.removeChild(this.son);
+       // document.body.removeChild(this.son);
+       this.son.pause();
+       this.son.currentTime = 0;
     }
     this.start = function()
     {
         if (this.finish) return false;
         this.son = document.createElement("audio");
-        this.son.setAttribute("src", this.source);
+       // this.son.setAttribute("src", this.source);
         this.son.setAttribute("hidden", "true");
         this.son.setAttribute("volume", this.volume);
         this.son.setAttribute("autoplay", "true");
-      //  this.son.setAttribute("loop", this.loop);
+        this.son.setAttribute("loop", this.loop);
+
+        for(let i = 0; i < source.length; i++){
+            let source = document.createElement('source');
+            source.setAttribute('src', this.source[i]);
+            source.setAttribute('type', 'audio/mpeg');
+            this.son.appendChild(source);
+        }
         document.body.appendChild(this.son);
     }
     this.remove = function()
@@ -153,7 +168,7 @@ function Sound(source, volume, loop)
         document.body.removeChild(this.son);
         this.finish = true;
     }
-    this.init = function(volume, loop)
+    this.play = function(volume, loop)
     {
         this.finish = false;
         this.volume = volume;
@@ -161,42 +176,22 @@ function Sound(source, volume, loop)
     }
 }
 
-var tracks;
+var tracks = [];
+var playIndex = 0;
+
+var playing = false;
+var play;
 
 function playAll(){
-    var sum = 0;
-    var timeline = [];
-    var play;
-    for(let i = 0; i < dataPlaylist.length; i++){
-        
-        let audio = new Audio();
-    audio.onloadedmetadata = () => {
-        
-        timeline.push(sum);
-        console.log(sum*1000);
-        sum+=Math.ceil(audio.duration);
-       
-        
-    };
-        audio.src = dataPlaylist[i].preview;
-        
+   
+    if(play){
+        playing ? play.pause() : play.restart();
+        playing = !playing;
+        return;
     }
+    playing = true;
     
-setTimeout(() =>{
-    for(let i = 0; i < timeline.length; i++){
-         let task = setInterval(() => {
-            if(play && tracks){
-                clearInterval(tracks);
-                play.stop();
-            }
-            tracks = task;
-            play = new Sound(dataPlaylist[i].preview, 100, true);
-            play.start();
-        }, timeline[i] * 1000);
-
-       
-        
-    }
-}
-    , 500);
+    play = new Sound(dataPlaylist.map(element => element.preview),100, true);
+    play.start();
+   
 }
