@@ -17,7 +17,7 @@ window.onload = async () => {
                 console.log('album selezionato:',selectedAlbum);
 
                 // - - - - - - - - - - - - - - - manipolazione DOM per inserimento album
-                const albumContainer = document.getElementById('albumContainer');
+                const albumContainer = document.getElementById('album-container');
                 // - - - - - - - - - - - - - - - destrutturazione prodotto selezionato (selectedAlbum)
                 const { id, title, cover, contributors, release_date, nb_tracks, duration, tracks } = selectedAlbum
 
