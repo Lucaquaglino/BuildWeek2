@@ -1,6 +1,8 @@
 const artistUrl = 'https://striveschool-api.herokuapp.com/api/deezer/search?q=';
 var progProcess;
 
+var dataPlaylist;
+
 window.onload = () => {
 
     let artist = new URLSearchParams(location.search).get('artist');
@@ -14,7 +16,9 @@ window.onload = () => {
             console.table(element);
             let domEl = domElement(element, index);
             document.querySelector('.row').appendChild(domEl);
+           
     });
+    dataPlaylist = data;
       //  ultimateProgress();
     })
     .catch(error => {
@@ -22,6 +26,14 @@ window.onload = () => {
         console.error(error);
     });
 
+
+    document.getElementById('play').onclick = () => {
+        if(tracks){
+            clearInterval(tracks);
+        }else{
+        playAll();
+        }
+    };
 };
 
 function showMessage(message){
@@ -94,6 +106,11 @@ function domElement(artistData, index){
     }
      foo = new Sound(artistData.preview, 100, true);
     foo.start();
+    let audio = new Audio();
+    audio.onloadedmetadata = () => {
+        console.log(audio.duration);
+    };
+    audio.src = artistData.preview;
    };
 
  
@@ -111,6 +128,11 @@ function Sound(source, volume, loop)
     var son;
     this.son = son;
     this.finish = false;
+
+    this.next = function(action){
+        this.son.addEventListener('ended', action);
+    }
+
     this.stop = function()
     {
         document.body.removeChild(this.son);
@@ -118,12 +140,12 @@ function Sound(source, volume, loop)
     this.start = function()
     {
         if (this.finish) return false;
-        this.son = document.createElement("embed");
+        this.son = document.createElement("audio");
         this.son.setAttribute("src", this.source);
         this.son.setAttribute("hidden", "true");
         this.son.setAttribute("volume", this.volume);
-        this.son.setAttribute("autostart", "true");
-        this.son.setAttribute("loop", this.loop);
+        this.son.setAttribute("autoplay", "true");
+      //  this.son.setAttribute("loop", this.loop);
         document.body.appendChild(this.son);
     }
     this.remove = function()
@@ -137,4 +159,44 @@ function Sound(source, volume, loop)
         this.volume = volume;
         this.loop = loop;
     }
+}
+
+var tracks;
+
+function playAll(){
+    var sum = 0;
+    var timeline = [];
+    var play;
+    for(let i = 0; i < dataPlaylist.length; i++){
+        
+        let audio = new Audio();
+    audio.onloadedmetadata = () => {
+        
+        timeline.push(sum);
+        console.log(sum*1000);
+        sum+=Math.ceil(audio.duration);
+       
+        
+    };
+        audio.src = dataPlaylist[i].preview;
+        
+    }
+    
+setTimeout(() =>{
+    for(let i = 0; i < timeline.length; i++){
+         let task = setInterval(() => {
+            if(play && tracks){
+                clearInterval(tracks);
+                play.stop();
+            }
+            tracks = task;
+            play = new Sound(dataPlaylist[i].preview, 100, true);
+            play.start();
+        }, timeline[i] * 1000);
+
+       
+        
+    }
+}
+    , 500);
 }
