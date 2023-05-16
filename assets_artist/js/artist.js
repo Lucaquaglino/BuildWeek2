@@ -1,31 +1,17 @@
-const artistUrl = 'https://striveschool-api.herokuapp.com/api/deezer/search?q=';
+const artistUrl = 'https://striveschool-api.herokuapp.com/api/deezer/artist/';
 var progProcess;
 
 var dataPlaylist;
 var audio;
+var play = false;
+var shuffle = false;
+var loop = false;
 
 window.onload = () => {
 
     let artist = new URLSearchParams(location.search).get('artist');
 
-   // startProgress();
-    fetch(`${artistUrl}${artist}`)
-    .then(response => response.json())
-    .then(({data}) => {
-        data.sort((e1,e2) => e1.rank > e2.rank ? -1 : 1);
-        data.forEach((element, index) =>{ 
-            console.table(element);
-            let domEl = domElement(element, index +1);
-            document.querySelector('#playlist-1').appendChild(domEl);
-           
-    });
-    dataPlaylist = data;
-      //  ultimateProgress();
-    })
-    .catch(error => {
-        showMessage('Errore recupero dati artista.');
-        console.error(error);
-    });
+   fetchArtist(artist);
 
 
     document.getElementById('play').onclick = () => {
@@ -35,7 +21,100 @@ window.onload = () => {
     };
 
     audio = document.getElementById('music-player');
+
+    let buttonPlay = document.getElementById('controlPlay');
+    buttonPlay.onclick = () => {
+        play ? audio.pause() : audio.play();
+        play = !play;
+    };
+
+    let buttonBack = document.getElementById('controlBack');
+    buttonBack.onclick = () => {
+        if(playlist){
+            playlist.back();
+        }
+    };
+
+    let buttonForward = document.getElementById('controlForward');
+    buttonForward.onclick = () => {
+        if(playlist){
+            playlist.next();
+        }
+    };
+
+    let buttonLoop = document.getElementById('controlLoop');
+    buttonLoop.onclick = () => {
+
+        
+        this.loop = !this.loop;
+        if(playlist){
+            playlist.flipLoop(this.loop);
+            //playlist.son.setAttribute('loop', this.loop);
+        }
+    };
+
+
+    let buttonShuffle = document.getElementById('controlShuffle');
+    buttonShuffle.onclick = () => {
+        if(shuffle){
+            playlist.source = dataPlaylist.map(element => element.preview);
+        }else{
+            let indexes = [];
+            while(indexes.length < dataPlaylist.length){
+                indexes.push(Math.floor(Math.random() * dataPlaylist.length));
+            }
+            let el = dataPlaylist.map(element => element.preview);
+            playlist.source = dataPlaylist.map(element => element.preview).sort((a,b) => indexes[el.indexOf(a)] < indexes[el.indexOf(b)] ? -1 : 1);
+        }
+        shuffle = !shuffle;
+    };
 };
+
+function showData(data){
+    document.getElementById('nome').innerText = data.name;
+    document.getElementById('subtitle').innerText = `${data.nb_fan} ascoltatori mensili.`;
+    let hero = document.getElementById('hero');
+    hero.style.backgroundImage = `url(${data.picture_big})`;
+    hero.style.backgroundSize = 'cover';
+    hero.style.height = '400px';
+
+}
+
+function fetchArtist(artist){
+
+    fetch(`${artistUrl}${artist}`)
+    .then(response => response.json())
+    .then(data => {
+
+        showData(data);
+        fetchSongs(data);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+}
+
+function fetchSongs(artist){
+// startProgress();
+fetch(`${artist.tracklist}`)
+.then(response => response.json())
+.then(({data}) => {
+    data.sort((e1,e2) => e1.rank > e2.rank ? -1 : 1);
+    data.forEach((element, index) =>{ 
+        console.table(element);
+        let domEl = domElement(element, index +1);
+        document.querySelector('#playlist-1').appendChild(domEl);
+       
+});
+dataPlaylist = data;
+  //  ultimateProgress();
+})
+.catch(error => {
+    showMessage('Errore recupero dati artista.');
+    console.error(error);
+});
+}
 
 function showMessage(message){
 
@@ -95,9 +174,15 @@ function domElement(artistData, index){
     card.appendChild(rank);
 
     col.onclick = () => {
-        audio.src = artistData.preview;
-        audio.load();
-        audio.play();
+        playing = true;
+        if(!playlist){
+            
+            playlist = new Sound(dataPlaylist.map(element => element.preview),100, this.loop);
+           // playlist.index = index;
+           // playlist.start();
+        }
+            playlist.playFrom(index -1, artistData.preview);
+        
     };
 
  /*   
@@ -183,8 +268,23 @@ function Sound(source, volume, loop)
     var src;
     this.src = src;
     var index = 0;
+    this.index = index;
+    var progress;
+    var timer;
 
-   
+    this.flipLoop = function(value){
+        this.loop = value;
+    }
+
+   this.playFrom = function(i, src){
+        this.index = i;
+        this.start();
+        this.son.pause();
+        this.src.setAttribute('src', src);
+        
+        this.son.load();
+        this.son.play();
+   }
 
     this.restart = function(){
         this.son.play();
@@ -208,31 +308,85 @@ function Sound(source, volume, loop)
        // this.son.setAttribute("src", this.source);
        // this.son.setAttribute("hidden", "true");
         this.son.setAttribute("volume", this.volume);
-        this.son.setAttribute("autoplay", "true");
+        this.son.setAttribute("autoplay", "false");
      //   this.son.setAttribute("loop", this.loop);
 
-      
-            let source = document.createElement('source');
-            this.src = source;
-            source.setAttribute('src', this.source[index]);
-            source.setAttribute('type', 'audio/mpeg');
-            this.son.appendChild(source);
+        this.son.addEventListener('loadedmetadata', () => {
+            document.getElementById('time').innerText = this.formatTime(this.son.duration);
+        });
+
+            if(!this.src){
+                let source = document.createElement('source');
+                this.src = source;
+            }
+            this.src.setAttribute('src', this.source[index]);
+            this.src.setAttribute('type', 'audio/mpeg');
+            this.son.appendChild(this.src);
 
             this.son.addEventListener('ended', () =>{
                 this.next();
             });
                 
+           
             
         
         document.body.appendChild(this.son);
+
+        this.son.addEventListener('loadeddata', () => {
+            let interval = 1000 * this.son.duration / 100;
+            this.progress = setInterval(() => {
+                this.updateProgress(this.son.currentTime);
+            }, interval);
+
+            this.timer = setInterval(() => {
+                let time = this.son.currentTime;
+                let element = document.getElementById('currentTime');
+                
+                element.innerText = this.formatTime(time);
+              //  this.updateProgress(time);
+            }, 1000);
+        });
+        
+        this.son.play();
+    }
+
+    this.updateProgress = function(tm){
+        let bar = document.getElementById('audioBar');
+        let value = Math.floor(tm / this.son.duration * 100);
+        bar.setAttribute('aria-valuenow', value);
+        bar.style = `width:${value}%`;
+    }
+
+    this.formatTime = function(tm){
+       // tm = Math.floor(tm/1000);
+        let min = Math.floor(tm/60);
+        let minString = min < 10 ? '0' + min : min;
+        let sec = Math.floor(tm%60);
+        let secString = sec < 10 ? '0' + sec : sec;
+        return `${minString}:${secString}`;
+    }
+
+    this.back = function(){
+        if(this.index == 0){
+            return;
+        }
+        this.index--;
+        this.src.setAttribute('src', this.source[this.index]);
+        this.son.pause();
+        this.son.load();
+        this.son.play();
     }
 
     this.next = function(){
-        if(index == source.length){
-            return;
+        if(this.index == source.length - 1){
+            if(this.loop){
+                this.index = -1;
+            }else{
+                return;
+            }
         }
-        index++;
-        this.src.setAttribute('src', this.source[index]);
+        this.index++;
+        this.src.setAttribute('src', this.source[this.index]);
         this.son.pause();
         this.son.load();
         this.son.play();
@@ -255,12 +409,13 @@ var tracks = [];
 var playIndex = 0;
 
 var playing = false;
-var play;
+var playlist;
 
 function stopPlaylist(){
     document.getElementById('play').innerText = 'Play';
-    if(play){
-        play.stop();
+    if(playlist){
+        playlist.stop();
+        playlist = undefined;
     }
 }
 
@@ -269,14 +424,14 @@ function playAll(){
         foo.stop();
         }
    document.getElementById('play').innerText = !playing ? 'Pausa': 'Play';
-    if(play){
-        playing ? play.pause() : play.restart();
+    if(playlist){
+        playing ? playlist.pause() : playlist.restart();
         playing = !playing;
         return;
     }
     playing = true;
     
-    play = new Sound(dataPlaylist.map(element => element.preview),100, true);
-    play.start();
+    playlist = new Sound(dataPlaylist.map(element => element.preview),100, this.loop);
+    playlist.start();
    
 }
