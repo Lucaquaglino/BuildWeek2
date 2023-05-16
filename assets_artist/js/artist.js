@@ -2,6 +2,7 @@ const artistUrl = 'https://striveschool-api.herokuapp.com/api/deezer/search?q=';
 var progProcess;
 
 var dataPlaylist;
+var audio;
 
 window.onload = () => {
 
@@ -14,8 +15,8 @@ window.onload = () => {
         data.sort((e1,e2) => e1.rank > e2.rank ? -1 : 1);
         data.forEach((element, index) =>{ 
             console.table(element);
-            let domEl = domElement(element, index);
-            document.querySelector('.row').appendChild(domEl);
+            let domEl = domElement(element, index +1);
+            document.querySelector('#playlist-1').appendChild(domEl);
            
     });
     dataPlaylist = data;
@@ -32,6 +33,8 @@ window.onload = () => {
         playAll();
        
     };
+
+    audio = document.getElementById('music-player');
 };
 
 function showMessage(message){
@@ -65,7 +68,7 @@ function incrementProgress(){
 
 function domElement(artistData, index){
     let col = document.createElement('div');
-    col.classList = 'col-12';
+    col.classList = 'col-12 my-2';
 
     let card = document.createElement('div');
     card.classList = 'd-flex flex-row align-items-center';
@@ -73,7 +76,7 @@ function domElement(artistData, index){
 
     let num = document.createElement('h4');
     num.innerText = index;
-    num.classList = 'w-15';
+    num.classList = 'w-15 mx-4';
     card.appendChild(num);
 
     let img = document.createElement('img');
@@ -82,41 +85,92 @@ function domElement(artistData, index){
     img.src = artistData.album.cover;
 
     let title = document.createElement('h4');
-    title.classList = 'title';
+    title.classList = 'title mx-4';
     title.innerText = artistData.title_short;
     card.appendChild(title);
 
     let rank = document.createElement('h6');
+    rank.classList = 'mx-3';
     rank.innerText = artistData.rank;
     card.appendChild(rank);
 
-    
+    col.onclick = () => {
+        audio.src = artistData.preview;
+        audio.load();
+        audio.play();
+    };
+
+ /*   
    let button = document.createElement('button');
    button.innerText = 'PLAY';
 
    card.appendChild(button);
 
-  
+  let playing = false;
+  let p;
 
    button.onclick = () => {
-    if(foo){
-    foo.stop();
+    if(selected && selected != button){
+        selected.innerText = 'Play';
     }
-     foo = new Sound(artistData.preview, 100, true);
+    selected = button;
+    button.innerText = !playing ? 'Pause' : 'Play';
+    if(p){
+        foo = p;
+        if(playing){
+         foo.pause();
+        
+            
+        }else{
+        foo.restart();
+        }
+        playing = !playing;
+        return;
+}
+    stopPlaylist();
+    if(foo){
+    
+        foo.stop();
+        }
+     foo = new Sound([artistData.preview], 100, true);
     foo.start();
-    let audio = new Audio();
-    audio.onloadedmetadata = () => {
-        console.log(audio.duration);
-    };
-    audio.src = artistData.preview;
+    p = foo;
+    playing = !playing;
+    
    };
 
- 
+ */
 
     return col;
 }
 
+var selected;
 var foo;
+
+function SoundButton(sound, button){
+    this.sound = sound;
+    this.button = button;
+    this.p = false;
+
+    this.start = function(){
+        p = true;
+        sound.start();
+        button.innerText = 'Pause'
+    }
+
+    this.play = function(){
+        sound.restart;
+        p = true;
+        button.innerText = 'Pause'
+    }
+
+    this.pause = function(){
+        p= false;
+        sound.pause();
+        button.innerText = 'Play'
+    }
+
+}
 
 function Sound(source, volume, loop)
 {
@@ -126,10 +180,11 @@ function Sound(source, volume, loop)
     var son;
     this.son = son;
     this.finish = false;
+    var src;
+    this.src = src;
+    var index = 0;
 
-    this.next = function(action){
-        this.son.addEventListener('ended', action);
-    }
+   
 
     this.restart = function(){
         this.son.play();
@@ -148,21 +203,41 @@ function Sound(source, volume, loop)
     this.start = function()
     {
         if (this.finish) return false;
-        this.son = document.createElement("audio");
+      //  this.son = document.createElement("audio");
+      this.son = document.getElementById('music-player');
        // this.son.setAttribute("src", this.source);
-        this.son.setAttribute("hidden", "true");
+       // this.son.setAttribute("hidden", "true");
         this.son.setAttribute("volume", this.volume);
         this.son.setAttribute("autoplay", "true");
-        this.son.setAttribute("loop", this.loop);
+     //   this.son.setAttribute("loop", this.loop);
 
-        for(let i = 0; i < source.length; i++){
+      
             let source = document.createElement('source');
-            source.setAttribute('src', this.source[i]);
+            this.src = source;
+            source.setAttribute('src', this.source[index]);
             source.setAttribute('type', 'audio/mpeg');
             this.son.appendChild(source);
-        }
+
+            this.son.addEventListener('ended', () =>{
+                this.next();
+            });
+                
+            
+        
         document.body.appendChild(this.son);
     }
+
+    this.next = function(){
+        if(index == source.length){
+            return;
+        }
+        index++;
+        this.src.setAttribute('src', this.source[index]);
+        this.son.pause();
+        this.son.load();
+        this.son.play();
+    }
+
     this.remove = function()
     {
         document.body.removeChild(this.son);
@@ -182,8 +257,18 @@ var playIndex = 0;
 var playing = false;
 var play;
 
+function stopPlaylist(){
+    document.getElementById('play').innerText = 'Play';
+    if(play){
+        play.stop();
+    }
+}
+
 function playAll(){
-   
+    if(foo){
+        foo.stop();
+        }
+   document.getElementById('play').innerText = !playing ? 'Pausa': 'Play';
     if(play){
         playing ? play.pause() : play.restart();
         playing = !playing;
