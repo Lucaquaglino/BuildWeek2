@@ -6,7 +6,7 @@ console.log('id album selezionato:',selectedAlbumId);
 // - - - - - - - - - - - - - - - GET fetch al window.onload
 window.onload = async () => {
     try {
-        const promise = await fetch('https://striveschool-api.herokuapp.com/api/deezer/album/75621062', {
+        const promise = await fetch(`https://striveschool-api.herokuapp.com/api/deezer/album/${selectedAlbumId}`, {
         //const promise = await fetch('https://striveschool-api.herokuapp.com/api/deezer/album/'+selectedAlbumId, {
             //method:'',
             //body:,
