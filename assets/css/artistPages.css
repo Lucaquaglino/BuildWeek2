@@ -138,4 +138,69 @@ margin-left: 10px;
     background: #555; 
   }
 
+  .colore-sfondo{
+    background-color: rgb(0%, 0%, 0%);
+}
+
+.album:hover{
+   background-color: rgb(9%, 9%, 9%);
+}
+
+.selected{
+    background-color: rgb(12%, 12%, 12%);
+}
+
+.album h4{
+    color: white;
+}
+
+.album h6{
+    color: white;
+}
+
+.album img{
+    height: 60px;
+    width: auto;
+}
+
+#playlist-1{
+    margin-bottom: 100px;
+}
+
+#play img{
+    height: 50px;
+    width: auto;
+}
+
+#play img:hover{
+    border-radius: 2rem;
+    box-shadow: 7px 6px 7px 6px #ffffff77;
+   
+}
+
+#follow{
+    border: 1px solid white;
+
+}
+
+h2{
+    color:white !important;
+}
+
+#hero > div{
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+}
+
+#hero{
+    position: relative;
+}
+
+h1{
+    margin-left: 1rem;
+}
+
+
+
  

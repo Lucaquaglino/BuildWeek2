@@ -1,4 +1,4 @@
-const artistUrl = 'https://striveschool-api.herokuapp.com/api/deezer/artist';
+const artistUrl = 'https://striveschool-api.herokuapp.com/api/deezer/artist/';
 var progProcess;
 
 var dataPlaylist;
@@ -79,10 +79,10 @@ window.onload = () => {
 };
 
 function showData(data){
-    document.getElementById('nome').innerText = data.name;
+    document.getElementById('nome').innerHTML = '<strong>'+data.name+'</strong>';
     document.getElementById('subtitle').innerText = `${data.nb_fan} ascoltatori mensili.`;
     let hero = document.getElementById('hero');
-    hero.style.backgroundImage = `url(${data.picture_big})`;
+    hero.style.background = `linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.7)), url('${data.picture_big}')`;
     hero.style.backgroundSize = 'cover';
     hero.style.height = '400px';
 
@@ -156,7 +156,7 @@ function incrementProgress(){
 
 function domElement(artistData, index){
     let col = document.createElement('div');
-    col.classList = 'col-12 my-2';
+    col.classList = 'col-12 my-2 album';
 
     let card = document.createElement('div');
     card.classList = 'd-flex flex-row align-items-center';
@@ -172,17 +172,36 @@ function domElement(artistData, index){
     card.appendChild(img);
     img.src = artistData.album.cover;
 
+    let card2 = document.createElement('div');
+    card2.classList = 'd-flex flex-row align-items-center justify-content-between w-100';
+  
+
     let title = document.createElement('h4');
     title.classList = 'title mx-4';
     title.innerText = artistData.title_short;
-    card.appendChild(title);
+    card2.appendChild(title);
+
+    card.appendChild(card2);
 
     let rank = document.createElement('h6');
     rank.classList = 'mx-3';
     rank.innerText = artistData.rank;
-    card.appendChild(rank);
+    card2.appendChild(rank);
+
+    let durat = document.createElement('h4');
+    durat.classList = 'mx-3';
+    let sec = artistData.duration%60;
+    sec = sec < 10 ? '0' + sec : `${sec}`;
+    durat.innerText = `${Math.floor(artistData.duration/60)}:${sec}`;
+    card.appendChild(durat);
+
 
     col.onclick = () => {
+        let list = document.getElementsByClassName('album');//.forEach(el => el.classList.remove('selected'));
+        for(let i = 0; i < list.length; i++){
+            list.item(i).classList.remove('selected');
+        }
+        col.classList.add('selected');
         playing = true;
         if(!playlist){
             
@@ -194,46 +213,7 @@ function domElement(artistData, index){
         
     };
 
- /*   
-   let button = document.createElement('button');
-   button.innerText = 'PLAY';
-
-   card.appendChild(button);
-
-  let playing = false;
-  let p;
-
-   button.onclick = () => {
-    if(selected && selected != button){
-        selected.innerText = 'Play';
-    }
-    selected = button;
-    button.innerText = !playing ? 'Pause' : 'Play';
-    if(p){
-        foo = p;
-        if(playing){
-         foo.pause();
-        
-            
-        }else{
-        foo.restart();
-        }
-        playing = !playing;
-        return;
-}
-    stopPlaylist();
-    if(foo){
-    
-        foo.stop();
-        }
-     foo = new Sound([artistData.preview], 100, true);
-    foo.start();
-    p = foo;
-    playing = !playing;
-    
-   };
-
- */
+ 
 
     return col;
 }
@@ -241,30 +221,7 @@ function domElement(artistData, index){
 var selected;
 var foo;
 
-function SoundButton(sound, button){
-    this.sound = sound;
-    this.button = button;
-    this.p = false;
 
-    this.start = function(){
-        p = true;
-        sound.start();
-        button.innerText = 'Pause'
-    }
-
-    this.play = function(){
-        sound.restart;
-        p = true;
-        button.innerText = 'Pause'
-    }
-
-    this.pause = function(){
-        p= false;
-        sound.pause();
-        button.innerText = 'Play'
-    }
-
-}
 
 function Sound(source, volume, loop)
 {
@@ -290,15 +247,16 @@ function Sound(source, volume, loop)
         this.loop = value;
     }
 
-   this.playFrom = function(i, src){
+   this.playFrom = function(i, _src){
         this.index = i;
         this.start();
         this.son.pause();
-        this.src.setAttribute('src', src);
+        this.src.setAttribute('src', _src);
         
         this.son.load();
         this.son.play();
         this.isPlay = true;
+        updatePlayButton();
    }
 
     this.restart = function(){
@@ -459,18 +417,21 @@ function playAll(){
     
     playlist.start();
     }
-    document.getElementById('play').innerText = playlist.isPlay ? 'Pausa': 'Play';
+    //document.getElementById('play').innerText = playlist.isPlay ? 'Pausa': 'Play';
    updatePlayButton();
 }
 
 function updatePlayButton(){
     let playIcon = document.getElementById('iconPlay');
     let pauseIcon = document.getElementById('iconPause');
+    let buttonImage = document.querySelector('#play img');
    if( playlist.isPlay){
         playIcon.style = 'display:none;';
         pauseIcon.style = 'display:block;';
+        buttonImage.src = 'assets/imgs/pause.svg'
    }else{
     pauseIcon.style = 'display:none;';
     playIcon.style = 'display:block;';
+    buttonImage.src = 'assets/imgs/play.svg'
    }
 }
