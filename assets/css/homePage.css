@@ -113,9 +113,7 @@ margin-left: 10px;
     box-shadow: 0px 0px 10px 0px black;
 }
 
-#playBtn {
-    background-color: rgb(30, 215, 96);
-}
+
 
 
   /* width */
@@ -136,10 +134,7 @@ margin-left: 10px;
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #555; 
-body{
-    color: white;
-    background-color: black;
-}
+
 
 .row a {
     color: white;
@@ -157,14 +152,13 @@ position: relative;
   }
 
 .play-btn{
-
+    background-color: rgb(30, 215, 96);
    display: none;
    position: absolute;
    top: 250px;
 left: 250px;
 
 }
-
 
 
   
