@@ -144,9 +144,14 @@ margin-left: 10px;
 .cardArtist:nth-child(n+2):nth-child(-n+20) {
     display: none;
   }
+
+
   .cardArtist{
     width: 30%;
   }
+
+
+
   .btn-artist{
     background-color: rgb(30, 215, 96);
    display: none;
@@ -169,10 +174,6 @@ left: 250px;
 
 }
 
-.play-btn:hover {
-
-
-}
   
   .container-card:hover .play-btn {
     display: block;
@@ -181,11 +182,16 @@ left: 250px;
     height: 55px;
     padding: 0;
    border: 0;
-   box-shadow: 100px 100px 4px rgba(0, 0, 0, 0.2); 
-   
   }
 
-  .container-card:hover {
+.btn-artist:hover{
+    background-color: rgb(91, 236, 142);
+}
+.btn-album:hover{
+    background-color: rgb(91, 236, 142);
+}
+
+  .card:hover {
     cursor: pointer;
   }
 

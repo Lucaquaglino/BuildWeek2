@@ -39,7 +39,7 @@ card += `
           <h5 class="card-title">${albumTitle}</h5>
           </div>
       </div>
-      <button class="btn btn-primary play-btn btn-album " data-music-link="${musicLink}"><i class="bi bi-play-fill "></i></button>
+      <button class="btn btn-primary play-btn btn-album shadow-none" data-music-link="${musicLink}"><i class="bi bi-play-fill "></i></button>
       </div>`
       
  container.innerHTML= card;
@@ -76,7 +76,7 @@ card += `
     </div>
   </div>
 </div>
-<button class="btn btn-primary play-btn btn-artist round-button" data-music-link="${musicLink}"><i class="bi bi-play-fill "></i></button>
+<button class="btn btn-primary play-btn btn-artist round-button shadow-none" data-music-link="${musicLink}"><i class="bi bi-play-fill "></i></button>
 </div>`
 
 
