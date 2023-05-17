@@ -1,4 +1,4 @@
-const artistUrl = 'https://striveschool-api.herokuapp.com/api/deezer/artist';
+const artistUrl = 'https://striveschool-api.herokuapp.com/api/deezer/artist/';
 var progProcess;
 
 var dataPlaylist;
