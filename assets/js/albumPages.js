@@ -16,8 +16,7 @@ window.onload = async () => {
                 const selectedAlbum = await promise.json();
                 console.log('album selezionato:',selectedAlbum);
 
-                // - - - - - - - - - - - - - - - manipolazione DOM per inserimento album
-                const albumContainer = document.getElementById('album-container');
+
                 // - - - - - - - - - - - - - - - destrutturazione prodotto selezionato (selectedAlbum)
                 const { id, title, cover, contributors, release_date, nb_tracks, duration, tracks } = selectedAlbum
 
@@ -37,19 +36,20 @@ window.onload = async () => {
                     return ore + ":" + minuti + ":" + secondi;
                 }
                 var albumDurationNew = albumDurationFunction(duration);
+                
 
 
-                albumContainer.innerHTML += `
-                    <div class="col">
-                        <p><b>Titolo album:</b> ${title}</p>
-                        <p><b>Cover album:</b> <img src="${cover}" class="card-img-top w-25" alt="..."></p>
-                        <p><b>Immagine artista:</b> <img src="${contributors[0].picture_small}" class="card-img-top w-25" alt="..."></p>
-                        <p><b>Nome artista:</b> ${contributors[0].name}</p>
-                        <p><b>Data album:</b> ${release_date.substr(0, 4)}</p>
-                        <p><b>Numero brani:</b> ${nb_tracks} brani</p>
-                        <p><b>Durata album:</b> ${albumDurationNew}</p>
-                    </div>
-                    `                
+                // - - - - - - - - - - - - - - - manipolazione DOM per info album
+                const albumCover = document.getElementById('albumCover');
+                albumCover.innerHTML = `<img src="${cover}" class="img-fluid" alt="..." id="albumImg"></div>`;
+
+                const albumTitle = document.getElementById('albumTitle');
+                albumTitle.innerText = `${title}`;
+
+                const artistPicture = document.getElementById('artistPicture');
+                artistPicture.innerHTML = `<img src="${contributors[0].picture_small}" class="img-fluid rounded-circle me-1" alt="..." width="24"><span>${contributors[0].name}</span> - <span>${release_date.substr(0, 4)}</span> - <span> ${nb_tracks} brani</span>, <span>${albumDurationNew}</span>`;
+
+                            
 
                 // - - - - - - - - - - - - - - - manipolazione DOM per inserimento brani
                 const songsContainer = document.getElementById('songsContainer');
@@ -80,8 +80,12 @@ window.onload = async () => {
 
 
                     songsContainer.innerHTML += `
-                    <div class="col-1">${i+1}</div><div class="col-9">${songTitle}</div><div class="col-2">${songDurationNew}</div>
-                    `
+                    <div class="col-12 mb-2">
+                        <div class="row">
+                        <div class="col-1">${i+1}</div><div class="col-9">${songTitle}<br><span>${contributors[0].name}</span></div><div class="col-2">${songDurationNew}</div>
+                        </div>
+                    </div>
+                    `                  
                 }
             }
             
@@ -93,3 +97,54 @@ window.onload = async () => {
         alert(error)
     }
 }
+
+
+//   array playlist finte
+const playlistNames = [
+    "Be The Young Seasons 1-5",
+    "Be The Young Seasons 6-8",
+    "persona di m*rda (gen-feb 2023)",
+    "Musical 2022",
+    "pippo, pluto e paperino (nov-dec 2022)",
+    "early stage emily syndrome (sett-ott 2022)",
+    "Be the young",
+    "'...' cit. Kimiko (lug-ago 2022)",
+    "saggio vibes 💃🩰",
+    "main character energy (mag-giu 2022)",
+    "that fucking mood 🔪☠️",
+    "VEE, CARLOTTA E GIACOMO VANNO A BOSIO",
+    "An Emily Winchester kind of mood 🔪🖕",
+    "landing page (mar-apr 2022)",
+    "2021 lol",
+    "cosa cazzo vuol dire questa affermazione (gen-feb 2022)",
+    "honey and glass (nov-dic 2021)",
+    "(Revenge) Training Arc 🦍",
+    "Lidia 🤝 Emily",
+    "minecraft e nintendo switch (sep-oct 2021)",
+    "silvano d'orba? I hardly know her (lug - ago 2021)",
+    "Culo 2021",
+    "Frah Quintale Mix",
+    "Francesco Guccini Mix",
+    "Lo Stato Sociale Mix",
+    "chapter 4/? (mag-giu 2021)",
+    "Strive School <> The Hunt Motivation",
+    "mi stavo dimenticando (mar-apr 2021)",
+    "high school musical 1,2,3",
+    "quanto trash cazzo",
+    "The 2020 Playlist",
+    "ma(ncanza) che cazzo ne so io (gen-feb 2021)",
+  ];
+  
+  
+  for (let i = 0; i < playlistNames.length; i++) {
+  const element = playlistNames[i];
+  console.log(element)
+  
+  
+  const playlistItem = document.createElement("p");
+  playlistItem.classList.add("playlist");
+  playlistItem.textContent = element;
+  const playlistContainer=document.getElementById("playlist")
+  playlistContainer.appendChild(playlistItem);
+  
+  }

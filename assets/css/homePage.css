@@ -1,0 +1,139 @@
+
+body{
+    color: white;
+    background-color: rgb(23, 23, 23);
+}
+
+img{
+    object-fit: cover;
+}
+
+.icona-cuore{
+    background: -webkit-linear-gradient(-45deg, rgba(203,96,179,1) 0%,rgba(168,0,119,1) 25%,rgba(193,70,161,1) 46%,rgba(193,70,161,1) 46%,rgba(219,54,164,1) 100%);
+}
+
+.icona-etichetta{
+    background-color: rgb(0%, 27%, 22%);
+}
+
+.icona-add{
+    background-color: gray;
+}
+ 
+.row a {
+    color: white;
+}
+
+.row a:hover{
+    color: rgb(12%, 84%, 38%);
+}
+
+#playlist p:hover{
+    color: rgb(12%, 84%, 38%);
+    cursor: pointer;
+}
+
+#barra{
+    overflow: Auto;
+    background-color: rgb(0%, 0%, 0%);
+    color: white;
+    width: 100%;
+    height: 1000px;
+    margin: 0px;
+    padding: 5px;
+    scrollbar-base-color: rgb(0%, 0%, 0%);
+    scrollbar-arrow-color: rgb(23, 23, 23);
+    scrollbar-track-color: rgb(23, 23, 23);
+}
+
+.barra2{
+    overflow: scroll;
+    overflow-x: hidden;
+   width: 100%;
+   height: 2000px;
+    margin: 0;
+    padding: 0;
+    scrollbar-base-color: rgb(0%, 0%, 0%);
+    scrollbar-arrow-color: rgb(23, 23, 23);
+    scrollbar-track-color: rgb(23, 23, 23);
+}
+
+.hero-section{
+    padding-left: 10rem;
+}
+
+.hero-scritte{
+    background: -webkit-linear-gradient(top, rgba(71,71,71,1) -1%,rgba(71,71,71,1) -1%,rgba(76,76,76,1) 0%,rgba(0,0,0,1) 0%,rgba(19,19,19,1) 0%,rgba(71,71,71,1) 0%,rgba(102,102,102,1) 0%,rgba(89,89,89,1) 0%,rgba(0,0,0,1) 31%,rgba(17,17,17,1) 100%,rgba(43,43,43,1) 100%);
+}
+
+.hero-scritte .btn,p{
+    border-radius: 80px;
+    margin-left: 1em;
+}
+
+.hero-scritte h1{
+margin-left: 10px;
+}
+
+.bottone-play{
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    width: 3em;
+    height: 3em;
+}
+
+.bottone-play:hover{
+    color: rgb(12%, 84%, 38%);
+}
+
+
+.colore-sfondo{
+    background-color: rgb(0%, 0%, 0%);
+}
+
+.album-sfondo{
+   background-color: rgb(9%, 9%, 9%);
+}
+
+.icona-play{
+    color: black;
+}
+
+.cardArtist:nth-child(n+2):nth-child(-n+20) {
+    display: none;
+}
+
+#centralColumn {
+    background-color: rgb(223, 193, 78);
+    background-image: linear-gradient(rgb(223, 193, 78), black);
+}
+
+#albumImg {
+    box-shadow: 0px 0px 10px 0px black;
+}
+
+#playBtn {
+    background-color: rgb(30, 215, 96);
+}
+
+
+  /* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
