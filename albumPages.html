@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Album page</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="assets/css/albumPages.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <div class="container-fluid row">
+
+
+      <!-- Navbar (colonna 1) -->
+
+
+      <nav class="nav flex-column col-2 colore-sfondo">
+        <a class="nav-link active" aria-current="page" href="#"
+          ><i class="bi bi-three-dots p-1"></i
+        ></a>
+        <a class="nav-link" href="#"> <i class="bi bi-house-fill"></i> Home</a>
+        <a class="nav-link" href="#"> <i class="bi bi-search"></i> Search</a>
+        <a class="nav-link" href="#">
+          <i class="bi bi-music-note-list p-1"></i> Link</a
+        >
+        <hr />
+        <a class="nav-link" href="#">
+          <i class="bi bi-plus-square-fill p-1 icona-add"></i> Crea Playlist</a
+        >
+        <a class="nav-link" href="#">
+          <i class="bi bi-heart-fill p-1 icona-cuore"></i> Brani che ti piacciono</a
+        >
+        <a class="nav-link" href="#">
+          <i class="bi bi-bookmark-fill p-1 icona-etichetta"></i> I tuoi episodi</a
+        >
+        <hr />
+      <div class="row" id="barra">
+        <!-- ARRAY PLAYLIST -->
+        <div id="playlist"></div>
+      </div>
+      </nav>
+
+
+      <!-- Hero section (colonna 2) -->
+
+      <section class="col-8 pt-5" id="centralColumn">
+    
+        <div class="container barra2">
+    
+          <div class="row d-flex align-items-end mb-5">
+            <div class="col-3" id="albumCover"><img src="assets_albumPage/img/artistImg.jpeg" class="img-fluid" alt="..." id="albumImg"></div>
+            <div class="col-9">
+              <div class="row">
+                <div class="col-12">ALBUM</div>
+                <div class="col-12 h1" id="albumTitle">Questo è il titolo dell'album</div>
+                <div class="col-12">
+                <div class="col-12" id="artistPicture"><img src="assets_albumPage/img/artistImg.jpeg" class="img-fluid rounded-circle me-1" alt="..." width="24"><span>Artista</span> - <span>Anno album</span> - <span>N. brani</span>, <span>Durata</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 mb-4">
+              <a href="#" class="btn btn-success rounded-circle me-3" id="playBtn"><i class="bi bi-play-fill"></i></a>
+              <i class="bi bi-heart me-3"></i>
+              <i class="bi bi-download me-3"></i>
+              <i class="bi bi-three-dots"></i>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col mb-2">
+              <div class="row">
+                <div class="col-1">#</div><div class="col-9">TITOLO</div><div class="col-2"><i class="bi bi-clock"></i></div>
+              </div>
+            </div>
+            <hr>
+          </div>
+          
+          <div class="row" id="songsContainer">
+            <!--
+            <div class="col-12 mb-2">
+              <div class="row">
+                <div class="col-1">1</div><div class="col-9">Titolo canzone<br><span>Nome artista</span></div><div class="col-2">3:24</div>
+              </div>
+            -->
+          </div>
+        </div>
+      
+
+      </section>
+
+
+       <!--Colonna a scomparsa (colonna 3) -->
+
+
+       <section class="col-2 mt-3">
+        <div class="card card-body colore-sfondo">
+          <div class="d-flex">
+            <div>
+              <img class="rounded-circle" src="assets/imgs/search/image-12.jpg" height="40" alt="img-hero">
+            </div>
+            <div class="flex-column mx-3">
+            <h5>Charlie Hookham</h5>
+            <h6><small>Camera•Yumi Zouma</h6></small>
+            <h6><small>EP III</h6></small>
+          </div>
+          </div>
+        </div>
+
+        <div class="card card-body colore-sfondo">
+          <div class="d-flex">
+            <div>
+              <img class="rounded-circle" src="assets/imgs/search/image-12.jpg" height="40" alt="img-hero">
+            </div>
+            <div class="flex-column mx-3">
+            <h5>Charlie Hookham</h5>
+            <h6><small>Camera•Yumi Zouma</h6></small>
+            <h6><small>EP III</h6></small>
+          </div>
+          </div>
+        </div>
+
+        <div class="card card-body colore-sfondo">
+          <div class="d-flex">
+            <div>
+              <img class="rounded-circle" src="assets/imgs/search/image-12.jpg" height="40" alt="img-hero">
+            </div>
+            <div class="flex-column mx-3">
+            <h5>Charlie Hookham</h5>
+            <h6><small>Camera•Yumi Zouma</h6></small>
+            <h6><small>EP III</h6></small>
+          </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+    <nav class="navbar fixed-bottom navbar-dark colore-sfondo">
+      <div class="container d-flex justify-content-center align-items-center">
+
+        <!-- PLAYER AUDIO -->
+        <audio id="music-player" controls>
+          <!-- Fallback content in caso di problemi con l'audio -->
+          Il tuo browser non supporta l'elemento audio.
+        </audio>
+      </div>
+    </nav>
+    
+    
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+      integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+      integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-cj1rJrslJP+TjsT/YMSnnV81+g9u4ULVjKbYHJzyVwOyIRxMzj2QflEBeLl84MiSPR5v5P5E5YKfx5ig3wq/Ew==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="assets/js/albumPages.js"></script>
+    
+  </body>
+</html>
