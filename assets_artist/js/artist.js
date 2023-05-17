@@ -24,8 +24,11 @@ window.onload = () => {
 
     let buttonPlay = document.getElementById('controlPlay');
     buttonPlay.onclick = () => {
-        play ? audio.pause() : audio.play();
-        play = !play;
+        if(playlist.initialized()){
+        playlist.isPlay ? playlist.pause() : playlist.restart();
+      updatePlayButton();
+        }
+     
     };
 
     let buttonBack = document.getElementById('controlBack');
@@ -51,11 +54,15 @@ window.onload = () => {
             playlist.flipLoop(this.loop);
             //playlist.son.setAttribute('loop', this.loop);
         }
+        document.getElementById('loopIcon').classList.toggle('active');
     };
 
 
     let buttonShuffle = document.getElementById('controlShuffle');
     buttonShuffle.onclick = () => {
+        if(!playlist){
+            return;
+        }
         if(shuffle){
             playlist.source = dataPlaylist.map(element => element.preview);
         }else{
@@ -67,6 +74,7 @@ window.onload = () => {
             playlist.source = dataPlaylist.map(element => element.preview).sort((a,b) => indexes[el.indexOf(a)] < indexes[el.indexOf(b)] ? -1 : 1);
         }
         shuffle = !shuffle;
+        document.getElementById('shuffleIcon').classList.toggle('active');
     };
 };
 
@@ -105,9 +113,10 @@ fetch(`${artist.tracklist}`)
         console.table(element);
         let domEl = domElement(element, index +1);
         document.querySelector('#playlist-1').appendChild(domEl);
-       
+      
 });
 dataPlaylist = data;
+initPlaylist();
   //  ultimateProgress();
 })
 .catch(error => {
@@ -271,6 +280,11 @@ function Sound(source, volume, loop)
     this.index = index;
     var progress;
     var timer;
+    this.isPlay = false;
+
+    this.initialized = function(){
+        return this.son != undefined;
+    }
 
     this.flipLoop = function(value){
         this.loop = value;
@@ -284,14 +298,17 @@ function Sound(source, volume, loop)
         
         this.son.load();
         this.son.play();
+        this.isPlay = true;
    }
 
     this.restart = function(){
         this.son.play();
+        this.isPlay = true;
     }
 
     this.pause = function(){
         this.son.pause();
+        this.isPlay = false;
     }
 
     this.stop = function()
@@ -299,6 +316,7 @@ function Sound(source, volume, loop)
        // document.body.removeChild(this.son);
        this.son.pause();
        this.son.currentTime = 0;
+       this.isPlay = false;
     }
     this.start = function()
     {
@@ -348,6 +366,7 @@ function Sound(source, volume, loop)
         });
         
         this.son.play();
+        this.isPlay = true;
     }
 
     this.updateProgress = function(tm){
@@ -375,6 +394,7 @@ function Sound(source, volume, loop)
         this.son.pause();
         this.son.load();
         this.son.play();
+        this.isPlay = true;
     }
 
     this.next = function(){
@@ -390,6 +410,7 @@ function Sound(source, volume, loop)
         this.son.pause();
         this.son.load();
         this.son.play();
+        this.isPlay = true;
     }
 
     this.remove = function()
@@ -408,7 +429,7 @@ function Sound(source, volume, loop)
 var tracks = [];
 var playIndex = 0;
 
-var playing = false;
+//var playing = false;
 var playlist;
 
 function stopPlaylist(){
@@ -419,19 +440,37 @@ function stopPlaylist(){
     }
 }
 
+function initPlaylist(){
+    playlist = new Sound(dataPlaylist.map(element => element.preview),100, this.loop);
+}
+
 function playAll(){
     if(foo){
         foo.stop();
         }
-   document.getElementById('play').innerText = !playing ? 'Pausa': 'Play';
-    if(playlist){
-        playing ? playlist.pause() : playlist.restart();
-        playing = !playing;
-        return;
-    }
-    playing = true;
+  
+    if(playlist && playlist.initialized()){
+        playlist.isPlay ? playlist.pause() : playlist.restart();
+       // playing = !playing;
+     
+    }else{
+   // playing = true;
     
-    playlist = new Sound(dataPlaylist.map(element => element.preview),100, this.loop);
+    
     playlist.start();
-   
+    }
+    document.getElementById('play').innerText = playlist.isPlay ? 'Pausa': 'Play';
+   updatePlayButton();
+}
+
+function updatePlayButton(){
+    let playIcon = document.getElementById('iconPlay');
+    let pauseIcon = document.getElementById('iconPause');
+   if( playlist.isPlay){
+        playIcon.style = 'display:none;';
+        pauseIcon.style = 'display:block;';
+   }else{
+    pauseIcon.style = 'display:none;';
+    playIcon.style = 'display:block;';
+   }
 }
