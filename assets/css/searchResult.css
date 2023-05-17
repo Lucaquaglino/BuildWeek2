@@ -1,0 +1,40 @@
+body{
+    color: white;
+    background-color: black;
+}
+
+.row a {
+    color: white;
+}
+
+
+.cardArtist:nth-child(n+2):nth-child(-n+20) {
+    display: none;
+  }
+
+
+
+  .container-card{
+position: relative;
+  }
+
+.play-btn{
+
+   display: none;
+   position: absolute;
+   top: 250px;
+left: 250px;
+
+}
+
+
+
+  
+  .container-card:hover .play-btn {
+    display: block;
+    
+  }
+
+  .container-card:hover{
+    cursor: pointer;
+  }
