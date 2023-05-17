@@ -134,7 +134,7 @@ margin-left: 10px;
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #555; 
-
+  }
 
 .row a {
     color: white;
@@ -167,6 +167,6 @@ left: 250px;
     
   }
 
-  .container-card:hover{
+  .container-card:hover {
     cursor: pointer;
   }
