@@ -144,29 +144,58 @@ margin-left: 10px;
 .cardArtist:nth-child(n+2):nth-child(-n+20) {
     display: none;
   }
+  .cardArtist{
+    width: 30%;
+  }
+  .btn-artist{
+    background-color: rgb(30, 215, 96);
+   display: none;
+   position: absolute;
+   top: 60px;
+left: 240px;
 
-
+}
 
   .container-card{
 position: relative;
   }
 
-.play-btn{
+.btn-album{
     background-color: rgb(30, 215, 96);
    display: none;
    position: absolute;
-   top: 250px;
+   top: 240px;
 left: 250px;
 
 }
 
+.play-btn:hover {
 
+
+}
   
   .container-card:hover .play-btn {
     display: block;
-    
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    padding: 0;
+   border: 0;
+   box-shadow: 100px 100px 4px rgba(0, 0, 0, 0.2); 
+   
   }
 
   .container-card:hover {
     cursor: pointer;
+  }
+
+
+/* icona play button */
+  .bi-play-fill{
+font-size: 40px;
+color: black;
+text-align: center;
+position: absolute;
+top: -2px;
+left: 11px;
   }
