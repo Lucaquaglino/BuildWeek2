@@ -11,14 +11,14 @@
       integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="assets/css/albumPages.css">
+    <link rel="stylesheet" href="./assets/css/albumPages.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
     />
   </head>
   <body>
-    <div class="container-fluid row">
+    <div class="container-fluid row m-0 colore-sfondo">
 
 
       <!-- Navbar (colonna 1) -->
@@ -28,23 +28,25 @@
         <a class="nav-link active" aria-current="page" href="#"
           ><i class="bi bi-three-dots p-1"></i
         ></a>
-        <a class="nav-link" href="#"> <i class="bi bi-house-fill"></i> Home</a>
-        <a class="nav-link" href="#"> <i class="bi bi-search"></i> Search</a>
+        <a class="nav-link" href="#"> <i class="bi bi-house-fill p-1"></i> Home</a>
+        <input type="text" id="searchInput">
+<button id="searchButton">Cerca</button>
+
         <a class="nav-link" href="#">
           <i class="bi bi-music-note-list p-1"></i> Link</a
         >
         <hr />
         <a class="nav-link" href="#">
-          <i class="bi bi-plus-square-fill p-1 icona-add"></i> Crea Playlist</a
+          <i class="bi bi-plus-lg p-1 icona-add"></i> Crea Playlist</a
         >
         <a class="nav-link" href="#">
           <i class="bi bi-heart-fill p-1 icona-cuore"></i> Brani che ti piacciono</a
         >
         <a class="nav-link" href="#">
-          <i class="bi bi-bookmark-fill p-1 icona-etichetta"></i> I tuoi episodi</a
+          <i class="bi bi-bookmark-fill p-1 text-success icona-etichetta"></i> I tuoi episodi</a
         >
         <hr />
-      <div class="row" id="barra">
+        <div class="row" id="barra">
         <!-- ARRAY PLAYLIST -->
         <div id="playlist"></div>
       </div>
@@ -54,9 +56,25 @@
       <!-- Hero section (colonna 2) -->
 
       <section class="col-8 pt-5" id="centralColumn">
-    
-        <div class="container barra2">
-    
+         <div class="container barra2">
+          <div class="d-flex justify-content-between">
+            <div class="mt-3 mb-3">
+            <a href=""><i class="bi bi-arrow-left p-1 bg-dark rounded-circle"></i></a>
+            <a href=""><i class="bi bi-arrow-right p-1 bg-dark rounded-circle"></i></a>
+          </div>
+          <div>
+            <div class="dropdown mt-3 mx-3">
+              <button class="dropdown-toggle btn-hero" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img class="rounded-circle mx-1" src="assets/imgs/main/image-2.jpg" height="25"> Lidia Nautilus...
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </div>
+        </div>
+      </div>
           <div class="row d-flex align-items-end mb-5">
             <div class="col-3" id="albumCover"><img src="assets_albumPage/img/artistImg.jpeg" class="img-fluid" alt="..." id="albumImg"></div>
             <div class="col-9">
@@ -105,16 +123,16 @@
        <!--Colonna a scomparsa (colonna 3) -->
 
 
-       <section class="col-2 mt-3">
+       <section class="col-2 mt-3 colore-sfondo">
         <div class="card card-body colore-sfondo">
           <div class="d-flex">
             <div>
-              <img class="rounded-circle" src="assets/imgs/search/image-12.jpg" height="40" alt="img-hero">
+              <img class="rounded-circle" src="assets/imgs/search/image-24.jpg" height="40" alt="img-hero">
             </div>
             <div class="flex-column mx-3">
             <h5>Charlie Hookham</h5>
             <h6><small>Camera•Yumi Zouma</h6></small>
-            <h6><small>EP III</h6></small>
+            <h6><small><i class="bi bi-pause-circle"></i> EP III</h6></small>
           </div>
           </div>
         </div>
@@ -122,12 +140,12 @@
         <div class="card card-body colore-sfondo">
           <div class="d-flex">
             <div>
-              <img class="rounded-circle" src="assets/imgs/search/image-12.jpg" height="40" alt="img-hero">
+              <img class="rounded-circle" src="assets/imgs/search/image-11.jpg" height="40" alt="img-hero">
             </div>
             <div class="flex-column mx-3">
-            <h5>Charlie Hookham</h5>
-            <h6><small>Camera•Yumi Zouma</h6></small>
-            <h6><small>EP III</h6></small>
+            <h5>lightdark02</h5>
+            <h6><small>Airmed to kill•jade LeMac</h6></small>
+            <h6><small><i class="bi bi-pause-circle"></i> Aimed to kill</h6></small>
           </div>
           </div>
         </div>
@@ -135,28 +153,48 @@
         <div class="card card-body colore-sfondo">
           <div class="d-flex">
             <div>
-              <img class="rounded-circle" src="assets/imgs/search/image-12.jpg" height="40" alt="img-hero">
+              <img class="rounded-circle" src="assets/imgs/search/image-9.jpg" height="40" alt="img-hero">
             </div>
             <div class="flex-column mx-3">
-            <h5>Charlie Hookham</h5>
-            <h6><small>Camera•Yumi Zouma</h6></small>
-            <h6><small>EP III</h6></small>
+              <h5>Valeria Traverso</h5>
+              <h6><small>New Kings•Sleeping Wolf</h6></small>
+              <h6><small><i class="bi bi-music-note-beamed"></i> Twint Badass mood</h6></small>
           </div>
           </div>
         </div>
       </section>
-
     </div>
-    <nav class="navbar fixed-bottom navbar-dark colore-sfondo">
-      <div class="container d-flex justify-content-center align-items-center">
 
-        <!-- PLAYER AUDIO -->
-        <audio id="music-player" controls>
-          <!-- Fallback content in caso di problemi con l'audio -->
-          Il tuo browser non supporta l'elemento audio.
-        </audio>
+
+
+    <nav class="navbar fixed-bottom navbar-dark colore-sfondo2">
+    <div class="card card-body colore-sfondo2 col-4">
+      <div class="d-flex">
+        <div>
+          <img class="rounded-circle" src="assets/imgs/search/image-24.jpg" height="40" alt="img-hero">
+        </div>
+        <div class="flex-column mx-3">
+        <h5>Charlie Hookham</h5>
+        <h6><small>Camera•Yumi Zouma</h6></small>
       </div>
-    </nav>
+      </div>
+    </div>
+    <div class="container d-flex justify-content-center align-items-center col-4">
+      <!-- PLAYER AUDIO -->
+      <audio id="music-player" controls>
+        <!-- Fallback content in caso di problemi con l'audio -->
+        Il tuo browser non supporta l'elemento audio.
+      </audio>
+    </div>
+    <div class="col-4 text-end">
+      <a href=""><i class="bi bi-mic-fill text-white me-2"></i></a>
+      <a href=""><i class="bi bi-list text-white me-2"></i></a>
+      <a href=""><i class="bi bi-ui-radios text-white me-2"></i></a>
+      <a href=""><i class="bi bi-volume-up-fill text-white me-2"></i></a>
+      <a href=""><i class="bi bi-arrows-angle-expand text-white me-2"></i></a>
+    </div>
+  </nav>
+    
     
     
     <script
