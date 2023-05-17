@@ -58,21 +58,21 @@ card += `
 
 
 
+
       // creo card a schermo degli artisti
       const artist = array[i].artist;
       const artistName = artist.name;
       const artistPicture = artist.picture_medium;
       cardArtist +=`<div class=" container-card cardArtist">
-      <div class="card m-2 bg-dark text-white  col-3 h-100  text-truncate" style="width: 18rem;">
+      <div class="card m-2 bg-dark text-white  col-3 h-100  text-truncate title-artist" style="width: 18rem;">
   <div class="row g-0">
     <div class="col-md-4">
       <img src="${artistPicture}" class="img-fluid rounded-start" style="object-fit: cover;" alt="...">
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <p class="card-title">${artistName}</p>
-        
-      </div>
+        <p class="card-title ">${artistName}</p>
+        </div>
     </div>
   </div>
 </div>
@@ -83,6 +83,16 @@ card += `
 containerArtist.innerHTML=cardArtist;
 
 
+// Prendo id dell album per andare su artist page
+
+ const cardClickArtist = document.querySelectorAll('.title-artist');
+      cardClickArtist.forEach((button, index) => {
+        button.addEventListener('click', () => {
+          const clickedArtist = array[index].artist;
+          const clickedArtistId = clickedArtist.id;
+          window.location.href = "artistPages.html?artist=" + clickedArtistId;
+        })
+      })
 
 
 //   Collego il bottone al player musicale
