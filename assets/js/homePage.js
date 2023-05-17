@@ -14,7 +14,10 @@
       const album = array[i].album;
       const albumTitle = album.title;
       const albumCover = album.cover_medium;
+      const idAlbum= album.id;
 
+     
+  
     //   link musicali
       const musicLink = array[i].preview;
       const musicPlayer = document.getElementById('music-player');
@@ -22,10 +25,15 @@
         console.log(musicLink)
       
       
+
+
+
+            // creo card a schermo degli album
       
 card += `
 <div class="col-2 col-md-4 container-card">
-    <div class="card bg-dark text-white m-4" style="width: 18rem;" onclick="pagina()" >
+    <div class="card bg-dark text-white m-4 cards-album" style="width: 18rem;">
+    
         <img src="${albumCover}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">${albumTitle}</h5>
@@ -35,7 +43,22 @@ card += `
       </div>`
       
  container.innerHTML= card;
- 
+
+
+// Prendo id dell album per andare su album page
+
+ const cardClick = document.querySelectorAll('.cards-album');
+      cardClick.forEach((button, index) => {
+        button.addEventListener('click', () => {
+          const clickedAlbum = array[index].album;
+          const clickedAlbumId = clickedAlbum.id;
+          window.location.href = "albumPages.html?id=" + clickedAlbumId;
+        })
+      })
+
+
+
+      // creo card a schermo degli artisti
       const artist = array[i].artist;
       const artistName = artist.name;
       const artistPicture = artist.picture_medium;
@@ -55,6 +78,9 @@ card += `
 
 
 containerArtist.innerHTML=cardArtist;
+
+
+
 
 //   Collego il bottone al player musicale
      const playButtons = document.querySelectorAll('.play-btn');
@@ -99,25 +125,16 @@ searchButton.addEventListener('click', function() {
 
 
 
-  function pagina() {
-    window.location.href = "albumPage.html"
+
+  function handleAlbumClick(idAlbum) {
+    const cardClick = document.querySelectorAll('.cards-album');
+    cardClick.forEach(button => {
+      button.addEventListener('click', () => {
+        window.location.href = "albumPages.html?id=" + idAlbum;
+      });
+    });
   }
-
-
-  
-  // function showButton(card) {
-  //   card.querySelector('.play-btn').style.display = 'block';
-   
-  // }
-  
-  // function hideButton(card) {
-  //   card.querySelector('.play-btn').style.display = 'none';
-  // }
-
-  // onmouseover="showButton(this)" onmouseout="hideButton(this)"
-  
-
-
+ 
 
 
 //   array playlist finte
