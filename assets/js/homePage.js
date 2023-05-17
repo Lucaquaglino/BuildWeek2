@@ -1,5 +1,6 @@
 
 
+
     fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=love")
   .then(response => response.json())
   .then(data => {
@@ -23,16 +24,18 @@
       
       
 card += `
-      <div class="card bg-dark text-white m-4" style="width: 18rem;">
+<div class="col-2 col-md-4 container-card">
+    <div class="card bg-dark text-white m-4" style="width: 18rem;" onclick="pagina()" >
         <img src="${albumCover}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">${albumTitle}</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <button class="btn btn-primary play-btn" data-music-link="${musicLink}">Play</button>
-        </div>
+          </div>
+      </div>
+      <button class="btn btn-primary play-btn " data-music-link="${musicLink}">Play</button>
       </div>`
+      
  container.innerHTML= card;
-
+ 
       const artist = array[i].artist;
       const artistName = artist.name;
       const artistPicture = artist.picture_medium;
@@ -68,6 +71,21 @@ containerArtist.innerHTML=cardArtist;
             musicPlayer.load();
             musicPlayer.play();}
             
+
+// Seleziona l'input di ricerca e il pulsante
+var searchInput = document.getElementById('searchInput');
+var searchButton = document.getElementById('searchButton');
+
+// Aggiungi un ascoltatore di eventi al pulsante di ricerca
+searchButton.addEventListener('click', function() {
+  // Ottieni il valore di input di ricerca
+  var searchTerm = searchInput.value;
+  window.location.href="searchResult.html?id="+searchTerm
+})
+
+
+
+
       console.log(albumTitle, albumCover);
 
     }
@@ -77,6 +95,28 @@ containerArtist.innerHTML=cardArtist;
     console.error('Si è verificato un errore:', error);
   });
  
+
+
+
+
+  function pagina() {
+    window.location.href = "albumPage.html"
+  }
+
+
+  
+  // function showButton(card) {
+  //   card.querySelector('.play-btn').style.display = 'block';
+   
+  // }
+  
+  // function hideButton(card) {
+  //   card.querySelector('.play-btn').style.display = 'none';
+  // }
+
+  // onmouseover="showButton(this)" onmouseout="hideButton(this)"
+  
+
 
 
 
@@ -137,4 +177,3 @@ playlistContainer.appendChild(playlistItem);
 
 
 
-  
