@@ -18,24 +18,25 @@
     />
   </head>
   <body>
-    <div class="container-fluid row m-0 colore-sfondo2">
+    <div class="container-fluid row m-0 p-0 bg-black">
 
 
       <!-- Navbar (colonna 1) -->
 
 
-      <nav class="nav flex-column col-2 colore-sfondo2">
+      <nav class="nav d-lg-flex flex-column col-2 d-none colore-sfondo">
         <a class="nav-link active" aria-current="page" href="#"
           ><i class="bi bi-three-dots p-1"></i
         ></a>
-        <a class="nav-link" href="#"> <i class="bi bi-house-fill p-1"></i> Home</a>
+        <a class="nav-link" href="homePage.html"> <i class="bi bi-house-fill p-1"></i> Home</a>
         <input type="text" id="searchInput">
 <button id="searchButton">Cerca</button>
 
         <a class="nav-link" href="#">
           <i class="bi bi-music-note-list p-1"></i> Link</a
         >
-        <hr />
+        <br>
+        <br>
         <a class="nav-link" href="#">
           <i class="bi bi-plus-lg p-1 icona-add"></i> Crea Playlist</a
         >
@@ -48,20 +49,20 @@
         <hr />
         <div class="row" id="barra">
         <!-- ARRAY PLAYLIST -->
-        <div id="playlist"></div>
+        <div class ="colore-sfondo ps-0" id="playlist"></div>
       </div>
       </nav>
 
 
       <!-- Hero section (colonna 2) -->
 
-      <section class="col-8 pt-5" id="centralColumn">
+      <section class="col-8 pe-0" id="centralColumn">
     
         <div class="container barra2">
           <div class="d-flex justify-content-between">
             <div class="mt-3 mb-3">
-            <a href=""><i class="bi bi-arrow-left p-1 bg-dark rounded-circle"></i></a>
-            <a href=""><i class="bi bi-arrow-right p-1 bg-dark rounded-circle"></i></a>
+            <a href=""><i class="bi bi-arrow-left p-1 bg-black rounded-circle"></i></a>
+            <a href=""><i class="bi bi-arrow-right p-1 bg-black rounded-circle opacity-50"></i></a>
           </div>
           <div>
             <div class="dropdown mt-3 mx-3">
@@ -80,7 +81,7 @@
           <div class="row d-flex align-items-end mb-5">
             <div class="col-3" id="albumCover"><img src="assets_albumPage/img/artistImg.jpeg" class="img-fluid" alt="..." id="albumImg"></div>
             <div class="col-9">
-              <div class="row">
+              <div class="row ms-2">
                 <div class="col-12">ALBUM</div>
                 <div class="col-12 h1" id="albumTitle">Questo è il titolo dell'album</div>
                 <div class="col-12">
@@ -91,8 +92,8 @@
           </div>
 
           <div class="row">
-            <div class="col-12 mb-4">
-              <a href="#" class="btn btn-success rounded-circle me-3" id="playBtn"><i class="bi bi-play-fill"></i></a>
+            <div class="d-flex align-items-center col-12 mb-4">
+              <button class="btn btn-primary play-btn btn-artist round-button shadow-none me-3 ms-3"><i class="bi bi-play-fill "></i></button>
               <i class="bi bi-heart me-3"></i>
               <i class="bi bi-download me-3"></i>
               <i class="bi bi-three-dots"></i>
@@ -102,7 +103,7 @@
           <div class="row">
             <div class="col mb-2">
               <div class="row">
-                <div class="col-1">#</div><div class="col-9">TITOLO</div><div class="col-2"><i class="bi bi-clock"></i></div>
+                <div class="col-1 text-center">#</div><div class="col-5">TITOLO</div><div class="col-4">RIPRODUZIONI</div><div class="col-2"><i class="bi bi-clock"></i></div>
               </div>
             </div>
             <hr>
@@ -125,7 +126,7 @@
        <!--Colonna a scomparsa (colonna 3) -->
 
 
-       <section class="col-2 mt-3 colore-sfondo">
+       <section class="col-2 d-lg-block d-none colore-sfondo">
         <div class="card card-body colore-sfondo">
           <div class="d-flex">
             <div>
@@ -139,7 +140,7 @@
           </div>
         </div>
 
-        <div class="card card-body colore-sfondo2">
+        <div class="card card-body border-0 colore-sfondo">
           <div class="d-flex">
             <div>
               <img class="rounded-circle" src="assets/imgs/search/image-11.jpg" height="40" alt="img-hero">
@@ -152,7 +153,7 @@
           </div>
         </div>
 
-        <div class="card card-body colore-sfondo2">
+        <div class="card card-body border-0 colore-sfondo">
           <div class="d-flex">
             <div>
               <img class="rounded-circle" src="assets/imgs/search/image-9.jpg" height="40" alt="img-hero">
@@ -167,10 +168,10 @@
       </section>
     </div>
 
+<!--FOOTER NAVBAR-->
 
-
-    <nav class="navbar fixed-bottom navbar-dark colore-sfondo2">
-    <div class="card card-body colore-sfondo2 col-4">
+    <nav class="navbar fixed-bottom navbar-dark colore-sfondo">
+    <div class="card card-body colore-sfondo col-4">
       <div class="d-flex">
         <div>
           <img class="rounded-circle" src="assets/imgs/search/image-24.jpg" height="40" alt="img-hero">
