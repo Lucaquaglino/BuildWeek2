@@ -39,7 +39,7 @@ card += `
           <h5 class="card-title">${albumTitle}</h5>
           </div>
       </div>
-      <button class="btn btn-primary play-btn " data-music-link="${musicLink}">Play</button>
+      <button class="btn btn-primary play-btn btn-album shadow-none" data-music-link="${musicLink}"><i class="bi bi-play-fill "></i></button>
       </div>`
       
  container.innerHTML= card;
@@ -58,28 +58,41 @@ card += `
 
 
 
+
       // creo card a schermo degli artisti
       const artist = array[i].artist;
       const artistName = artist.name;
       const artistPicture = artist.picture_medium;
-      cardArtist +=`<div class="card m-2 bg-dark text-white cardArtist col-3 h-100  text-truncate" style="">
+      cardArtist +=`<div class=" container-card cardArtist">
+      <div class="card m-2 bg-dark text-white  col-3 h-100  text-truncate title-artist" style="width: 18rem;">
   <div class="row g-0">
     <div class="col-md-4">
       <img src="${artistPicture}" class="img-fluid rounded-start" style="object-fit: cover;" alt="...">
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <p class="card-title">${artistName}</p>
-        <button class="btn btn-primary play-btn" data-music-link="${musicLink}">Play</button>
-      </div>
+        <p class="card-title ">${artistName}</p>
+        </div>
     </div>
   </div>
+</div>
+<button class="btn btn-primary play-btn btn-artist round-button shadow-none" data-music-link="${musicLink}"><i class="bi bi-play-fill "></i></button>
 </div>`
 
 
 containerArtist.innerHTML=cardArtist;
 
 
+// Prendo id dell album per andare su artist page
+
+ const cardClickArtist = document.querySelectorAll('.title-artist');
+      cardClickArtist.forEach((button, index) => {
+        button.addEventListener('click', () => {
+          const clickedArtist = array[index].artist;
+          const clickedArtistId = clickedArtist.id;
+          window.location.href = "artistPages.html?artist=" + clickedArtistId;
+        })
+      })
 
 
 //   Collego il bottone al player musicale
@@ -126,14 +139,14 @@ searchButton.addEventListener('click', function() {
 
 
 
-  function handleAlbumClick(idAlbum) {
-    const cardClick = document.querySelectorAll('.cards-album');
-    cardClick.forEach(button => {
-      button.addEventListener('click', () => {
-        window.location.href = "albumPages.html?id=" + idAlbum;
-      });
-    });
-  }
+  // function handleAlbumClick(idAlbum) {
+  //   const cardClick = document.querySelectorAll('.cards-album');
+  //   cardClick.forEach(button => {
+  //     button.addEventListener('click', () => {
+  //       window.location.href = "albumPages.html?id=" + idAlbum;
+  //     });
+  //   });
+  // }
  
 
 
