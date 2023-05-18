@@ -62,6 +62,15 @@ img{
     padding-left: 10rem;
 }
 
+.btn-hero {
+    background-color: #0a0a0a;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    font-size: small;
+    opacity: 0.8;
+  }
+
 .hero-scritte{
     background: -webkit-linear-gradient(top, rgba(71,71,71,1) -1%,rgba(71,71,71,1) -1%,rgba(76,76,76,1) 0%,rgba(0,0,0,1) 0%,rgba(19,19,19,1) 0%,rgba(71,71,71,1) 0%,rgba(102,102,102,1) 0%,rgba(89,89,89,1) 0%,rgba(0,0,0,1) 31%,rgba(17,17,17,1) 100%,rgba(43,43,43,1) 100%);
 }
@@ -91,6 +100,11 @@ margin-left: 10px;
 .colore-sfondo{
     background-color: rgb(0%, 0%, 0%);
 }
+
+.colore-sfondo2 {
+    background-color: #181818;
+  }
+  
 
 .album-sfondo{
    background-color: rgb(9%, 9%, 9%);
@@ -202,5 +216,16 @@ h1{
 }
 
 
+#audioControl .active{
+    fill: #00ff00;
+}
 
+audio{
+    display: none;
+}
+
+.progress{
+    --bs-progress-bg: rgba(255,255,255,0.2) !important;
+    height: 6px !important;
+}
  
