@@ -1,3 +1,4 @@
+//import { Sound } from "./controlAudio.js";
 const artistUrl = 'https://striveschool-api.herokuapp.com/api/deezer/artist/';
 var progProcess;
 
@@ -8,6 +9,8 @@ var shuffle = false;
 var loop = false;
 
 window.onload = () => {
+
+    addContents();
 
     let artist = new URLSearchParams(location.search).get('artist');
 
@@ -54,7 +57,7 @@ window.onload = () => {
             playlist.flipLoop(this.loop);
             //playlist.son.setAttribute('loop', this.loop);
         }
-        document.getElementById('loopIcon').classList.toggle('active');
+        document.getElementById('controlLoop').classList.toggle('active');
     };
 
 
@@ -65,27 +68,28 @@ window.onload = () => {
         }
         if(shuffle){
             playlist.source = dataPlaylist.map(element => element.preview);
+            playlist.index = sessionStorage.getItem('artist'+playlist.index);
         }else{
-            let indexes = [];
-            while(indexes.length < dataPlaylist.length){
-                indexes.push(Math.floor(Math.random() * dataPlaylist.length));
-            }
-            let el = dataPlaylist.map(element => element.preview);
-            playlist.source = dataPlaylist.map(element => element.preview).sort((a,b) => indexes[el.indexOf(a)] < indexes[el.indexOf(b)] ? -1 : 1);
+            shuff();
         }
         shuffle = !shuffle;
-        document.getElementById('shuffleIcon').classList.toggle('active');
+        document.getElementById('controlShuffle').classList.toggle('active');
     };
 };
 
 function showData(data){
     document.getElementById('nome').innerHTML = '<strong>'+data.name+'</strong>';
-    document.getElementById('subtitle').innerText = `${data.nb_fan} ascoltatori mensili.`;
+    document.getElementById('subtitle').innerText = `${formatInt(Number(data.nb_fan))} ascoltatori mensili.`;
     let hero = document.getElementById('hero');
     hero.style.background = `linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.7)), url('${data.picture_big}')`;
     hero.style.backgroundSize = 'cover';
+    hero.style.backgroundPosition = 'center';
     hero.style.height = '400px';
 
+    let bandIcon = document.getElementById('bandImg');
+    bandIcon.src = data.picture_small;
+    let bandLike = document.getElementById('bandLike');
+    bandLike.innerText = 'di '+ data.name;
 }
 
 function fetchArtist(artist){
@@ -113,6 +117,7 @@ fetch(`${artist.tracklist}`)
         console.table(element);
         let domEl = domElement(element, index +1);
         document.querySelector('#playlist-1').appendChild(domEl);
+        element['indice'] = index;
       
 });
 dataPlaylist = data;
@@ -185,7 +190,8 @@ function domElement(artistData, index){
 
     let rank = document.createElement('h6');
     rank.classList = 'mx-3';
-    rank.innerText = artistData.rank;
+    
+    rank.innerText = formatInt(Number(artistData.rank));
     card2.appendChild(rank);
 
     let durat = document.createElement('h4');
@@ -205,7 +211,7 @@ function domElement(artistData, index){
         playing = true;
         if(!playlist){
             
-            playlist = new Sound(dataPlaylist.map(element => element.preview),100, this.loop);
+            playlist = new Sound(dataPlaylist.map(element => element.preview),100, this.loop, updateList);
            // playlist.index = index;
            // playlist.start();
         }
@@ -218,12 +224,33 @@ function domElement(artistData, index){
     return col;
 }
 
+function formatInt(int){
+    let array = [...String(int)];
+    for(let i = 3, j = 1; i < array.length; i+=3+j, j++){
+        array.splice(-i,0,'.');
+    }
+    return String(array.join(''));
+}
+
+function updateList(index){
+    let i = sessionStorage.getItem('artist'+index);
+    let list = document.getElementsByClassName('album');
+    for(let i = 0; i < list.length; i++){
+        list.item(i).classList.remove('selected');
+    }
+    if(i && shuffle){
+        list.item(i).classList.add('selected');
+    }else{
+        list.item(this.index).classList.add('selected');
+    }
+}
+
 var selected;
 var foo;
 
 
 
-function Sound(source, volume, loop)
+function Sound(source, volume, loop, indexCallback)
 {
     this.source = source;
     this.volume = volume;
@@ -238,6 +265,7 @@ function Sound(source, volume, loop)
     var progress;
     var timer;
     this.isPlay = false;
+    this.callback = indexCallback;
 
     this.initialized = function(){
         return this.son != undefined;
@@ -325,6 +353,7 @@ function Sound(source, volume, loop)
         
         this.son.play();
         this.isPlay = true;
+        this.updateIndex(this.callback);
     }
 
     this.updateProgress = function(tm){
@@ -343,6 +372,10 @@ function Sound(source, volume, loop)
         return `${minString}:${secString}`;
     }
 
+    this.updateIndex = function(callback){
+        this.callback(this.index);
+    }
+
     this.back = function(){
         if(this.index == 0){
             return;
@@ -353,6 +386,7 @@ function Sound(source, volume, loop)
         this.son.load();
         this.son.play();
         this.isPlay = true;
+        this.updateIndex(this.callback);
     }
 
     this.next = function(){
@@ -369,7 +403,10 @@ function Sound(source, volume, loop)
         this.son.load();
         this.son.play();
         this.isPlay = true;
+        this.updateIndex(this.callback);
     }
+
+    
 
     this.remove = function()
     {
@@ -399,7 +436,7 @@ function stopPlaylist(){
 }
 
 function initPlaylist(){
-    playlist = new Sound(dataPlaylist.map(element => element.preview),100, this.loop);
+    playlist = new Sound(dataPlaylist.map(element => element.preview),100, this.loop, updateList);
 }
 
 function playAll(){
@@ -434,4 +471,68 @@ function updatePlayButton(){
     playIcon.style = 'display:block;';
     buttonImage.src = 'assets/imgs/play.svg'
    }
+}
+
+function shuff(){
+    let indexes = [];
+    while(indexes.length < dataPlaylist.length){
+        indexes.push(Math.floor(Math.random() * dataPlaylist.length));
+    }
+    let el = dataPlaylist.map(element => element.preview);
+    playlist.source = dataPlaylist.map(element => element.preview).sort((a,b) => indexes[el.indexOf(a)] < indexes[el.indexOf(b)] ? -1 : 1);
+    let temp = dataPlaylist.map(el => el).sort((a,b) => indexes[a.indice] < indexes[b.indice] ? -1 : 1);
+    temp.forEach((el,index) => sessionStorage.setItem('artist'+index, el.indice));
+
+}
+
+function addContents(){
+
+const playlistNames = [
+    "Be The Young Seasons 1-5",
+    "Be The Young Seasons 6-8",
+    "persona di m*rda (gen-feb 2023)",
+    "Musical 2022",
+    "pippo, pluto e paperino (nov-dec 2022)",
+    "early stage emily syndrome (sett-ott 2022)",
+    "Be the young",
+    "'...' cit. Kimiko (lug-ago 2022)",
+    "saggio vibes 💃🩰",
+    "main character energy (mag-giu 2022)",
+    "that fucking mood 🔪☠️",
+    "VEE, CARLOTTA E GIACOMO VANNO A BOSIO",
+    "An Emily Winchester kind of mood 🔪🖕",
+    "landing page (mar-apr 2022)",
+    "2021 lol",
+    "cosa cazzo vuol dire questa affermazione (gen-feb 2022)",
+    "honey and glass (nov-dic 2021)",
+    "(Revenge) Training Arc 🦍",
+    "Lidia 🤝 Emily",
+    "minecraft e nintendo switch (sep-oct 2021)",
+    "silvano d'orba? I hardly know her (lug - ago 2021)",
+    "Culo 2021",
+    "Frah Quintale Mix",
+    "Francesco Guccini Mix",
+    "Lo Stato Sociale Mix",
+    "chapter 4/? (mag-giu 2021)",
+    "Strive School <> The Hunt Motivation",
+    "mi stavo dimenticando (mar-apr 2021)",
+    "high school musical 1,2,3",
+    "quanto trash cazzo",
+    "The 2020 Playlist",
+    "ma(ncanza) che cazzo ne so io (gen-feb 2021)",
+  ];
+
+
+for (let i = 0; i < playlistNames.length; i++) {
+  const element = playlistNames[i];
+  console.log(element)
+
+
+  const playlistItem = document.createElement("p");
+  playlistItem.classList.add("playlist");
+  playlistItem.textContent = element;
+const playlistContainer=document.getElementById("playlist")
+playlistContainer.appendChild(playlistItem);
+ 
+}
 }

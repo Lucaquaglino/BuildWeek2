@@ -1,5 +1,6 @@
-#audioControl .active{
+#audioControl .active svg{
     fill: #00ff00;
+   
 }
 
 audio{
