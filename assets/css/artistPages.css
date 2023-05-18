@@ -1,125 +1,158 @@
-
-body{
-    color: white;
-    background-color: rgb(23, 23, 23);
+body {
+  color: white;
+  background-color: black;
 }
 
-img{
-    object-fit: cover;
+img {
+  object-fit: cover;
 }
 
-.icona-cuore{
-    background: -webkit-linear-gradient(-45deg, rgba(203,96,179,1) 0%,rgba(168,0,119,1) 25%,rgba(193,70,161,1) 46%,rgba(193,70,161,1) 46%,rgba(219,54,164,1) 100%);
+.icona-cuore {
+  background: -webkit-linear-gradient(
+    -45deg,
+    rgba(203, 96, 179, 1) 0%,
+    rgba(168, 0, 119, 1) 25%,
+    rgba(193, 70, 161, 1) 46%,
+    rgba(193, 70, 161, 1) 46%,
+    rgba(219, 54, 164, 1) 100%
+  );
 }
 
-.icona-etichetta{
-    background-color: rgb(0%, 27%, 22%);
+.icona-etichetta {
+  background-color: rgb(0%, 27%, 22%);
 }
 
-.icona-add{
-    background-color: gray;
+.icona-add {
+  background-color: gray;
 }
- 
+
 .row a {
-    color: white;
+  color: white;
 }
 
-.row a:hover{
-    color: rgb(12%, 84%, 38%);
+.row a:hover {
+  color: rgb(12%, 84%, 38%);
 }
 
-#playlist p:hover{
-    color: rgb(12%, 84%, 38%);
-    cursor: pointer;
+#playlist p:hover {
+  color: rgb(12%, 84%, 38%);
+  cursor: pointer;
 }
 
-#barra{
-    overflow: Auto;
-    background-color: rgb(0%, 0%, 0%);
-    color: white;
-    width: 100%;
-    height: 1000px;
-    margin: 0px;
-    padding: 5px;
-    scrollbar-base-color: rgb(0%, 0%, 0%);
-    scrollbar-arrow-color: rgb(23, 23, 23);
-    scrollbar-track-color: rgb(23, 23, 23);
+#barra {
+  overflow: Auto;
+  background-color: rgb(0%, 0%, 0%);
+  color: white;
+  width: 100%;
+  height: 1000px;
+  margin: 0px;
+  padding: 5px;
+  scrollbar-base-color: rgb(0%, 0%, 0%);
+  scrollbar-arrow-color: rgb(23, 23, 23);
+  scrollbar-track-color: rgb(23, 23, 23);
 }
 
-.barra2{
-    overflow: scroll;
-    overflow-x: hidden;
-   width: 100%;
-   height: 2000px;
-    margin: 0;
-    padding: 0;
-    scrollbar-base-color: rgb(0%, 0%, 0%);
-    scrollbar-arrow-color: rgb(23, 23, 23);
-    scrollbar-track-color: rgb(23, 23, 23);
+.barra2 {
+  overflow: Auto;
+  overflow-x: hidden;
+  color: white;
+  width: 100%;
+  height: 1000px;
+  margin: 0px;
+  padding: 0;
+  scrollbar-base-color: rgb(0%, 0%, 0%);
+  scrollbar-arrow-color: rgb(23, 23, 23);
+  scrollbar-track-color: rgb(23, 23, 23);
 }
 
-.hero-section{
-    padding-left: 10rem;
+.hero-section {
+  padding-left: 10rem;
 }
 
 .btn-hero {
-    background-color: #0a0a0a;
-    border: none;
-    color: white;
-    border-radius: 10px;
-    font-size: small;
-    opacity: 0.8;
-  }
-
-.hero-scritte{
-    background: -webkit-linear-gradient(top, rgba(71,71,71,1) -1%,rgba(71,71,71,1) -1%,rgba(76,76,76,1) 0%,rgba(0,0,0,1) 0%,rgba(19,19,19,1) 0%,rgba(71,71,71,1) 0%,rgba(102,102,102,1) 0%,rgba(89,89,89,1) 0%,rgba(0,0,0,1) 31%,rgba(17,17,17,1) 100%,rgba(43,43,43,1) 100%);
+  background-color: #0a0a0a;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  font-size: small;
+  opacity: 0.8;
 }
 
-.hero-scritte .btn,p{
-    border-radius: 80px;
-    margin-left: 1em;
+.hero-scritte {
+  background: -webkit-linear-gradient(
+    top,
+    rgba(71, 71, 71, 1) -1%,
+    rgba(71, 71, 71, 1) -1%,
+    rgba(76, 76, 76, 1) 0%,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(19, 19, 19, 1) 0%,
+    rgba(71, 71, 71, 1) 0%,
+    rgba(102, 102, 102, 1) 0%,
+    rgba(89, 89, 89, 1) 0%,
+    rgba(0, 0, 0, 1) 31%,
+    rgba(17, 17, 17, 1) 100%,
+    rgba(43, 43, 43, 1) 100%
+  );
 }
 
-.hero-scritte h1{
-margin-left: 10px;
+.hero-scritte .btn,
+p {
+  border-radius: 80px;
+  margin-left: 1em;
 }
 
-.bottone-play{
-    color: #fff;
-    border: none;
-    border-radius: 100px;
-    width: 3em;
-    height: 3em;
+.hero-scritte h1 {
+  margin-left: 10px;
 }
 
-.bottone-play:hover{
-    color: rgb(12%, 84%, 38%);
+.bottone-play {
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  width: 3em;
+  height: 3em;
 }
 
+.bottone-play:hover {
+  color: rgb(12%, 84%, 38%);
+}
 
 .icona-play{
     color: black;
+.colore-sfondo {
+  background-color: rgb(0%, 0%, 0%);
 }
 
-.cardArtist:nth-child(n+2):nth-child(-n+20) {
-    display: none;
+.colore-sfondo2 {
+  background-color: #181818;
+}
+
+.album-sfondo {
+  background-color: rgb(9%, 9%, 9%);
+}
+
+.icona-play {
+  color: black;
+}
+
+.cardArtist:nth-child(n + 2):nth-child(-n + 20) {
+  display: none;
 }
 
 #centralColumn {
-    background-color: rgb(223, 193, 78);
-    background-image: linear-gradient(rgb(223, 193, 78), black);
+  background-color: rgb(223, 193, 78);
+  background-image: linear-gradient(rgb(223, 193, 78), black);
 }
 
 #albumImg {
-    box-shadow: 0px 0px 10px 0px black;
+  box-shadow: 0px 0px 10px 0px black;
 }
 
 #playBtn {
-    background-color: rgb(30, 215, 96);
+  background-color: rgb(30, 215, 96);
 }
 
-
-  /* width */
+/* width */
 ::-webkit-scrollbar {
     width: 10px;
   }
@@ -157,50 +190,72 @@ margin-left: 10px;
 
 .album h6{
     color: rgb(200,200,200);
+  width: 10px;
 }
 
-.album img{
-    height: 60px;
-    width: auto;
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
 
-#playlist-1{
-    margin-bottom: 100px;
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
 }
 
-#play img{
-    height: 50px;
-    width: auto;
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.colore-sfondo {
+  background-color: rgb(0%, 0%, 0%);
+}
+
+.album:hover {
+  background-color: rgb(9%, 9%, 9%);
+}
+
+.selected {
+  background-color: rgb(12%, 12%, 12%);
+}
+
+.album h4 {
+  color: white;
 }
 
 #play img:hover{
     border-radius: 2rem;
     box-shadow: 6px 4px 2px 4px #ffffff77;
    
+.album h6 {
+  color: white;
 }
 
-#follow{
-    border: 1px solid white;
-
+.album img {
+  height: 60px;
+  width: auto;
 }
 
 h2{
     color:white !important;
     font-size: 1.4rem !important;
+#playlist-1 {
+  margin-bottom: 100px;
 }
 
-#hero > div{
-    display: inline-block;
-    position: absolute;
-    bottom: 0;
+#play img {
+  height: 50px;
+  width: auto;
 }
 
-#hero{
-    position: relative;
+#play img:hover {
+  border-radius: 2rem;
+  box-shadow: 7px 6px 7px 6px #ffffff77;
 }
 
-h1{
-    margin-left: 1rem;
+#follow {
+  border: 1px solid white;
 }
 
 #ver{
@@ -325,5 +380,33 @@ section.colore-sfondo{
     #playlist-1 h6{
         font-size: 0.4rem !important;
     }
+h2 {
+  color: white !important;
 }
- 
+
+#hero > div {
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+}
+
+#hero {
+  position: relative;
+}
+
+h1 {
+  margin-left: 1rem;
+}
+
+#audioControl .active {
+  fill: #00ff00;
+}
+
+audio {
+  display: none;
+}
+
+.progress {
+  --bs-progress-bg: rgba(255, 255, 255, 0.2) !important;
+  height: 6px !important;
+}

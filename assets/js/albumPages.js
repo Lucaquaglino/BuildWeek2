@@ -45,7 +45,7 @@ window.onload = async () => {
 
                 // - - - - - - - - - - - - - - - manipolazione DOM per info album
                 const albumCover = document.getElementById('albumCover');
-                albumCover.innerHTML = `<img src="${cover}" class="img-fluid w-100" alt="..." id="albumImg"></div>`;
+                albumCover.innerHTML = `<img src="${cover}" class="img-fluid w-100 ms-3" alt="..." id="albumImg"></div>`;
 
                 const albumTitle = document.getElementById('albumTitle');
                 albumTitle.innerText = `${title}`;
@@ -90,7 +90,9 @@ window.onload = async () => {
                     songsContainer.innerHTML += `
                     <div class="col-12 mb-2 album">
                         <div class="row">
-                        <div class="col-1 text-end">${i+1}</div><div class="col-5">${songTitle}<br><span>${contributors[0].name}</span></div><div class="col-4">${songRank}</div><div class="col-2">${songDurationNew}</div>
+                        <div class="col-1 text-center">${i+1}</div>
+                        <div class="col-5">${songTitle}<br><span>${contributors[0].name}</span></div>
+                        <div class="col-4">${songRank}</div><div class="col-2">${songDurationNew}</div>
                         </div>
                     </div>
                     `                  
