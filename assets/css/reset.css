@@ -11,3 +11,25 @@ audio{
     --bs-progress-bg: rgba(255,255,255,0.2) !important;
     height: 6px !important;
 }
+
+#audioControl .active{
+    position: relative;
+   
+}
+
+#audioControl .active::before{
+    height: 2px;
+    width: 2px;
+    content: '';
+    fill: #00ff00;
+    background-color: #00ff00;
+    border-radius: 2rem;
+    bottom: 5%;
+    right: 50%;
+    position: absolute;
+}
+
+#barContainer p{
+    margin-bottom: 0px;
+    margin: 0px 8px !important;
+}

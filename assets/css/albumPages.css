@@ -226,3 +226,7 @@ p {
   top: -2px;
   left: 11px;
 }
+
+.selected{
+  background-color: rgba(100%, 100%, 100%, 0.2);
+}

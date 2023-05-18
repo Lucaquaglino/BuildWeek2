@@ -3,6 +3,10 @@
 const selectedAlbumId = new URLSearchParams(window.location.search).get("id");
 console.log('id album selezionato:',selectedAlbumId);
 
+var playlist;
+var dataPlaylist;
+var shuffle = false;
+
 // - - - - - - - - - - - - - - - GET fetch al window.onload
 window.onload = async () => {
     try {
@@ -55,6 +59,9 @@ window.onload = async () => {
                 const songsContainer = document.getElementById('songsContainer');
 
                 let tracksArray = tracks.data;
+                dataPlaylist = tracksArray;
+                dataPlaylist.forEach((el,i) => el['indice'] = i);
+                initPlaylist();
                 console.log(tracksArray);
                 for (i = 0; i < tracksArray.length; i++) {
                     let songTitle = tracksArray[i].title;
@@ -81,13 +88,14 @@ window.onload = async () => {
 
 
                     songsContainer.innerHTML += `
-                    <div class="col-12 mb-2">
+                    <div class="col-12 mb-2 album">
                         <div class="row">
                         <div class="col-1 text-end">${i+1}</div><div class="col-5">${songTitle}<br><span>${contributors[0].name}</span></div><div class="col-4">${songRank}</div><div class="col-2">${songDurationNew}</div>
                         </div>
                     </div>
                     `                  
                 }
+                setupList();
             }
             
             else {
@@ -97,6 +105,10 @@ window.onload = async () => {
     catch (error) {
         alert(error)
     }
+
+
+
+    setupAudioComponents();
 }
 
 
@@ -149,3 +161,318 @@ const playlistNames = [
   playlistContainer.appendChild(playlistItem);
   
   }
+
+var loop = false;
+
+
+function Sound(source, volume, loop, indexCallback)
+{
+    this.source = source;
+    this.volume = volume;
+    this.loop = loop;
+    var son;
+    this.son = son;
+    this.finish = false;
+    var src;
+    this.src = src;
+    var index = 0;
+    this.index = index;
+    var progress;
+    var timer;
+    this.isPlay = false;
+    this.callback = indexCallback;
+
+    this.initialized = function(){
+        return this.son != undefined;
+    }
+
+    this.flipLoop = function(value){
+        this.loop = value;
+    }
+
+   this.playFrom = function(i, _src){
+        this.index = i;
+        this.start();
+        this.son.pause();
+        this.src.setAttribute('src', _src);
+        
+        this.son.load();
+        this.son.play();
+        this.isPlay = true;
+        updatePlayButton();
+   }
+
+    this.restart = function(){
+        this.son.play();
+        this.isPlay = true;
+    }
+
+    this.pause = function(){
+        this.son.pause();
+        this.isPlay = false;
+    }
+
+    this.stop = function()
+    {
+       // document.body.removeChild(this.son);
+       this.son.pause();
+       this.son.currentTime = 0;
+       this.isPlay = false;
+    }
+    this.start = function()
+    {
+        if (this.finish) return false;
+      //  this.son = document.createElement("audio");
+      this.son = document.getElementById('music-player');
+       // this.son.setAttribute("src", this.source);
+       // this.son.setAttribute("hidden", "true");
+        this.son.setAttribute("volume", this.volume);
+        this.son.setAttribute("autoplay", "false");
+     //   this.son.setAttribute("loop", this.loop);
+
+        this.son.addEventListener('loadedmetadata', () => {
+            document.getElementById('time').innerText = this.formatTime(this.son.duration);
+        });
+
+            if(!this.src){
+                let source = document.createElement('source');
+                this.src = source;
+            }
+            this.src.setAttribute('src', this.source[index]);
+            this.src.setAttribute('type', 'audio/mpeg');
+            this.son.appendChild(this.src);
+
+            this.son.addEventListener('ended', () =>{
+                this.next();
+            });
+                
+           
+            
+        
+        document.body.appendChild(this.son);
+
+        this.son.addEventListener('loadeddata', () => {
+            let interval = 1000 * this.son.duration / 100;
+            this.progress = setInterval(() => {
+                this.updateProgress(this.son.currentTime);
+            }, interval);
+
+            this.timer = setInterval(() => {
+                let time = this.son.currentTime;
+                let element = document.getElementById('currentTime');
+                
+                element.innerText = this.formatTime(time);
+              //  this.updateProgress(time);
+            }, 1000);
+        });
+        
+        this.son.play();
+        this.isPlay = true;
+        this.updateIndex(this.callback);
+    }
+
+    this.updateProgress = function(tm){
+        let bar = document.getElementById('audioBar');
+        let value = Math.floor(tm / this.son.duration * 100);
+        bar.setAttribute('aria-valuenow', value);
+        bar.style = `width:${value}%`;
+    }
+
+    this.formatTime = function(tm){
+       // tm = Math.floor(tm/1000);
+        let min = Math.floor(tm/60);
+        let minString = min < 10 ? '0' + min : min;
+        let sec = Math.floor(tm%60);
+        let secString = sec < 10 ? '0' + sec : sec;
+        return `${minString}:${secString}`;
+    }
+
+    this.updateIndex = function(callback){
+        this.callback(this.index);
+    }
+
+    this.back = function(){
+        if(this.index == 0){
+            return;
+        }
+        this.index--;
+        this.src.setAttribute('src', this.source[this.index]);
+        this.son.pause();
+        this.son.load();
+        this.son.play();
+        this.isPlay = true;
+        this.updateIndex(this.callback);
+    }
+
+    this.next = function(){
+        if(this.index == source.length - 1){
+            if(this.loop){
+                this.index = -1;
+            }else{
+                return;
+            }
+        }
+        this.index++;
+        this.src.setAttribute('src', this.source[this.index]);
+        this.son.pause();
+        this.son.load();
+        this.son.play();
+        this.isPlay = true;
+        this.updateIndex(this.callback);
+    }
+
+    
+
+    this.remove = function()
+    {
+        document.body.removeChild(this.son);
+        this.finish = true;
+    }
+    this.play = function(volume, loop)
+    {
+        this.finish = false;
+        this.volume = volume;
+        this.loop = loop;
+    }
+}
+
+function initPlaylist(){
+    playlist = new Sound(dataPlaylist.map(element => element.preview),100, this.loop, updateList);
+}
+
+function setupAudioComponents(){
+
+    document.getElementById('play').onclick = () => {
+        
+        playAll();
+       
+    };
+
+    let buttonPlay = document.getElementById('controlPlay');
+    buttonPlay.onclick = () => {
+        if(playlist.initialized()){
+        playlist.isPlay ? playlist.pause() : playlist.restart();
+      updatePlayButton();
+        }
+     
+    };
+
+    let buttonBack = document.getElementById('controlBack');
+    buttonBack.onclick = () => {
+        if(playlist){
+            playlist.back();
+        }
+    };
+
+    let buttonForward = document.getElementById('controlForward');
+    buttonForward.onclick = () => {
+        if(playlist){
+            playlist.next();
+        }
+    };
+
+    let buttonLoop = document.getElementById('controlLoop');
+    buttonLoop.onclick = () => {
+
+        
+        this.loop = !this.loop;
+        if(playlist){
+            playlist.flipLoop(this.loop);
+            //playlist.son.setAttribute('loop', this.loop);
+        }
+        document.getElementById('controlLoop').classList.toggle('active');
+    };
+
+
+    let buttonShuffle = document.getElementById('controlShuffle');
+    buttonShuffle.onclick = () => {
+        if(!playlist){
+            return;
+        }
+        if(shuffle){
+            playlist.source = dataPlaylist.map(element => element.preview);
+            playlist.index = sessionStorage.getItem('album'+playlist.index);
+        }else{
+            shuff();
+        }
+        shuffle = !shuffle;
+        document.getElementById('controlShuffle').classList.toggle('active');
+    };
+}
+
+
+function updatePlayButton(){
+    let playIcon = document.getElementById('iconPlay');
+    let pauseIcon = document.getElementById('iconPause');
+    let buttonImage = document.querySelector('#play img');
+   if( playlist.isPlay){
+        playIcon.style = 'display:none;';
+        pauseIcon.style = 'display:block;';
+        buttonImage.src = 'assets/imgs/pause.svg'
+   }else{
+    pauseIcon.style = 'display:none;';
+    playIcon.style = 'display:block;';
+    buttonImage.src = 'assets/imgs/play.svg'
+   }
+}
+
+function playAll(){
+   
+  
+    if(playlist && playlist.initialized()){
+        playlist.isPlay ? playlist.pause() : playlist.restart();
+  
+     
+    }else{
+ 
+    
+    
+    playlist.start();
+    }
+    updatePlayButton();
+}
+
+function updateList(index){
+    let i = sessionStorage.getItem('album'+index);
+    let list = document.getElementsByClassName('album');
+    for(let i = 0; i < list.length; i++){
+        list.item(i).classList.remove('selected');
+    }
+    if(i && shuffle){
+        list.item(i).classList.add('selected');
+    }else{
+        list.item(this.index).classList.add('selected');
+    }
+}
+
+function setupList(){
+    let list = document.getElementsByClassName('album');
+    for(let i = 0; i < list.length; i++){
+        let item =list.item(i);
+        item.onclick = () => {
+            for(let i = 0; i < list.length; i++){
+                list.item(i).classList.remove('selected');
+            }
+            item.classList.add('selected');
+            let data = dataPlaylist[i];
+            if(!playlist){
+            
+                playlist = new Sound(dataPlaylist.map(element => element.preview),100, this.loop, updateList);
+              
+            }
+            playlist.playFrom(i, data.preview);
+        };
+    }
+}
+
+function shuff(){
+    let indexes = [];
+    while(indexes.length < dataPlaylist.length){
+        indexes.push(Math.floor(Math.random() * dataPlaylist.length));
+    }
+    let el = dataPlaylist.map(element => element.preview);
+    playlist.source = dataPlaylist.map(element => element.preview).sort((a,b) => indexes[el.indexOf(a)] < indexes[el.indexOf(b)] ? -1 : 1);
+    let temp = dataPlaylist.map(el => el).sort((a,b) => indexes[a.indice] < indexes[b.indice] ? -1 : 1);
+    temp.forEach((el,index) => sessionStorage.setItem('album'+index, el.indice));
+
+}
