@@ -31,12 +31,12 @@
             // creo card a schermo degli album
       
 card += `
-<div class="col-6 col-md-4 col-lg-3 container-card cardsAlbum">
-    <div class="card text-white m-4 cards-album p-3">
+<div class="col-2 col-md-4 container-card">
+    <div class="card bg-dark text-white m-4 cards-album" style="width: 18rem;">
     
         <img src="${albumCover}" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title text-truncate">${albumTitle}</h5>
+          <h5 class="card-title">${albumTitle}</h5>
           </div>
       </div>
       <button class="btn btn-primary play-btn btn-album shadow-none" data-music-link="${musicLink}"><i class="bi bi-play-fill "></i></button>
@@ -63,14 +63,16 @@ card += `
       const artist = array[i].artist;
       const artistName = artist.name;
       const artistPicture = artist.picture_medium;
-      cardArtist +=`<div class="container-card col-6 col-lg-2 cardArtist">
-      <div class="card m-2 text-white title-artist card-artist" >
-  <div class="row g-0 d-flex align-items-center">
-    <div class="col-4">
+      cardArtist +=`<div class=" container-card cardArtist">
+      <div class="card m-2 bg-dark text-white  col-3 h-100  text-truncate title-artist" style="width: 18rem;">
+  <div class="row g-0">
+    <div class="col-md-4">
       <img src="${artistPicture}" class="img-fluid rounded-start" style="object-fit: cover;" alt="...">
     </div>
-    <div class="card-body col-sm-8">
-        <p class="card-title">${artistName}</p>
+    <div class="col-md-8">
+      <div class="card-body">
+        <p class="card-title ">${artistName}</p>
+        </div>
     </div>
   </div>
 </div>
