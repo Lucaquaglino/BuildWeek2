@@ -33,3 +33,7 @@ audio{
     margin-bottom: 0px;
     margin: 0px 8px !important;
 }
+
+.selected{
+    background-color: rgba(100%, 100%, 100%, 0.2);
+  }

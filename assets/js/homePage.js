@@ -107,8 +107,15 @@ containerArtist.innerHTML=cardArtist;
          function playMusic(musicLink) {
             const musicPlayer = document.getElementById('music-player');
             musicPlayer.src = musicLink;
-            musicPlayer.load();
-            musicPlayer.play();}
+          //  musicPlayer.load();
+          //  musicPlayer.play();
+          if(player){
+            player.stop();
+          }
+          player = new Sound([musicLink], 100, false, () => console.log('void'));
+          player.start();
+          updatePlayButton();
+          }
             
 
 // Seleziona l'input di ricerca e il pulsante
@@ -200,6 +207,257 @@ playlistContainer.appendChild(playlistItem);
  
 }
 
+var player;
+
+function Sound(source, volume, loop, indexCallback)
+{
+    this.source = source;
+    this.volume = volume;
+    this.loop = loop;
+    var son;
+    this.son = son;
+    this.finish = false;
+    var src;
+    this.src = src;
+    var index = 0;
+    this.index = index;
+    var progress;
+    var timer;
+    this.isPlay = false;
+    this.callback = indexCallback;
+
+    this.initialized = function(){
+        return this.son != undefined;
+    }
+
+    this.flipLoop = function(value){
+        this.loop = value;
+    }
+
+   this.playFrom = function(i, _src){
+        this.index = i;
+        this.start();
+        this.son.pause();
+        this.src.setAttribute('src', _src);
+        
+        this.son.load();
+        this.son.play();
+        this.isPlay = true;
+        updatePlayButton();
+   }
+
+    this.restart = function(){
+        this.son.play();
+        this.isPlay = true;
+    }
+
+    this.pause = function(){
+        this.son.pause();
+        this.isPlay = false;
+    }
+
+    this.stop = function()
+    {
+       // document.body.removeChild(this.son);
+       this.son.pause();
+       this.son.currentTime = 0;
+       this.isPlay = false;
+    }
+    this.start = function()
+    {
+        if (this.finish) return false;
+      //  this.son = document.createElement("audio");
+      this.son = document.getElementById('music-player');
+       // this.son.setAttribute("src", this.source);
+       // this.son.setAttribute("hidden", "true");
+        this.son.setAttribute("volume", this.volume);
+        this.son.setAttribute("autoplay", "false");
+     //   this.son.setAttribute("loop", this.loop);
+
+        this.son.addEventListener('loadedmetadata', () => {
+            document.getElementById('time').innerText = this.formatTime(this.son.duration);
+        });
+
+            if(!this.src){
+                let source = document.createElement('source');
+                this.src = source;
+            }
+            this.src.setAttribute('src', this.source[index]);
+            this.src.setAttribute('type', 'audio/mpeg');
+            this.son.appendChild(this.src);
+
+            this.son.addEventListener('ended', () =>{
+                this.next();
+            });
+                
+           
+            
+        
+        document.body.appendChild(this.son);
+
+        this.son.addEventListener('loadeddata', () => {
+            let interval = 1000 * this.son.duration / 100;
+            this.progress = setInterval(() => {
+                this.updateProgress(this.son.currentTime);
+            }, interval);
+
+            this.timer = setInterval(() => {
+                let time = this.son.currentTime;
+                let element = document.getElementById('currentTime');
+                
+                element.innerText = this.formatTime(time);
+              //  this.updateProgress(time);
+            }, 1000);
+        });
+        
+        this.son.play();
+        this.isPlay = true;
+        this.updateIndex(this.callback);
+    }
+
+    this.updateProgress = function(tm){
+        let bar = document.getElementById('audioBar');
+        let value = Math.floor(tm / this.son.duration * 100);
+        bar.setAttribute('aria-valuenow', value);
+        bar.style = `width:${value}%`;
+    }
+
+    this.formatTime = function(tm){
+       // tm = Math.floor(tm/1000);
+        let min = Math.floor(tm/60);
+        let minString = min < 10 ? '0' + min : min;
+        let sec = Math.floor(tm%60);
+        let secString = sec < 10 ? '0' + sec : sec;
+        return `${minString}:${secString}`;
+    }
+
+    this.updateIndex = function(callback){
+        this.callback(this.index);
+    }
+
+    this.back = function(){
+        if(this.index == 0){
+            return;
+        }
+        this.index--;
+        this.src.setAttribute('src', this.source[this.index]);
+        this.son.pause();
+        this.son.load();
+        this.son.play();
+        this.isPlay = true;
+        this.updateIndex(this.callback);
+    }
+
+    this.next = function(){
+        if(this.index == source.length - 1){
+            if(this.loop){
+                this.index = -1;
+            }else{
+                return;
+            }
+        }
+        this.index++;
+        this.src.setAttribute('src', this.source[this.index]);
+        this.son.pause();
+        this.son.load();
+        this.son.play();
+        this.isPlay = true;
+        this.updateIndex(this.callback);
+    }
+
+    
+
+    this.remove = function()
+    {
+        document.body.removeChild(this.son);
+        this.finish = true;
+    }
+    this.play = function(volume, loop)
+    {
+        this.finish = false;
+        this.volume = volume;
+        this.loop = loop;
+    }
+}
+
+
+function setupAudioComponents(){
+
+ /* document.getElementById('play').onclick = () => {
+      
+      playAll();
+     
+  };
+  */
+
+  let buttonPlay = document.getElementById('controlPlay');
+  buttonPlay.onclick = () => {
+    if(!player){
+      return;
+    }
+      if(player.initialized()){
+      player.isPlay ? player.pause() : player.restart();
+    updatePlayButton();
+      }
+   
+  };
+
+  let buttonBack = document.getElementById('controlBack');
+  buttonBack.onclick = () => {
+      if(player){
+          playlist.back();
+      }
+  };
+
+  let buttonForward = document.getElementById('controlForward');
+  buttonForward.onclick = () => {
+      if(player){
+          playlist.next();
+      }
+  };
+
+  let buttonLoop = document.getElementById('controlLoop');
+  buttonLoop.onclick = () => {
+
+      
+      this.loop = !this.loop;
+      if(player){
+          playlist.flipLoop(this.loop);
+          //playlist.son.setAttribute('loop', this.loop);
+      }
+      document.getElementById('controlLoop').classList.toggle('active');
+  };
+
+
+  let buttonShuffle = document.getElementById('controlShuffle');
+  buttonShuffle.onclick = () => {
+      if(!player){
+          return;
+      }
+     
+      shuffle = !shuffle;
+      document.getElementById('controlShuffle').classList.toggle('active');
+  };
+}
+
+window.onload = () => {
+  setupAudioComponents();
+};
+
+function updatePlayButton(){
+  let playIcon = document.getElementById('iconPlay');
+  let pauseIcon = document.getElementById('iconPause');
+ 
+ if( player.isPlay){
+      playIcon.style = 'display:none;';
+      pauseIcon.style = 'display:block;';
+    
+ }else{
+  pauseIcon.style = 'display:none;';
+  playIcon.style = 'display:block;';
+ 
+ }
+}
 
 
   

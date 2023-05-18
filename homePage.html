@@ -11,6 +11,7 @@
       integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="./assets/css/reset.css" />
     <link rel="stylesheet" href="./assets/css/homePage.css" />
     <link
       rel="stylesheet"
@@ -170,13 +171,100 @@
       </div>
       </div>
     </div>
+
+    <nav class="navbar fixed-bottom navbar-dark colore-sfondo2">
+      <!--
+      <div class="card card-body colore-sfondo2 col-4">
+        <div class="d-flex">
+          <div>
+            <img class="rounded-circle" src="assets/imgs/search/image-24.jpg" height="40" alt="img-hero">
+          </div>
+          <div class="flex-column mx-3">
+          <h5>Charlie Hookham</h5>
+          <h6><small>Camera•Yumi Zouma</h6></small>
+        </div>
+        </div>
+      </div>
+      -->
+      <div class="w-50 container d-flex justify-content-center align-items-center col-4">
+          <ul id="audioControl" class="navbar-nav d-flex flex-row">
+              <li class="nav-item mx-4"><a id="controlShuffle" class="nav-link">
+      
+                <svg id="shuffleIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shuffle" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"/>
+                  <path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/>
+                </svg>
+      
+              </a></li>
+      
+              <li class="nav-item mx-4"><a id="controlBack" class="nav-link">
+      
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-skip-backward-fill" viewBox="0 0 16 16">
+                  <path d="M.5 3.5A.5.5 0 0 0 0 4v8a.5.5 0 0 0 1 0V8.753l6.267 3.636c.54.313 1.233-.066 1.233-.697v-2.94l6.267 3.636c.54.314 1.233-.065 1.233-.696V4.308c0-.63-.693-1.01-1.233-.696L8.5 7.248v-2.94c0-.63-.692-1.01-1.233-.696L1 7.248V4a.5.5 0 0 0-.5-.5z"/>
+                </svg>
+      
+              </a></li>
+      
+              <li class="nav-item mx-4"><a id="controlPlay" class="nav-link">
+      <!--
+                <svg id="iconPlay" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="white" class="bi bi-play-fill" viewBox="0 0 16 16">
+                  <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                </svg>
+    -->
+            <!--    <svg id="iconPause" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="white" class="bi bi-pause-fill" viewBox="0 0 16 16">
+                  <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
+                </svg>
+    -->
+    
+    <svg id="iconPlay" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="white" class="bi bi-play-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>
+      </svg>
+    
+                <svg id="iconPause" xmlns="http://www.w3.org/2000/svg" style="display:none;" width="26" height="26" fill="white" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5zm3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5z"/>
+                  </svg>
+      
+              </a></li>
+      
+              <li class="nav-item mx-4"><a id="controlForward" class="nav-link">
+      
+               
+      
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-skip-forward-fill" viewBox="0 0 16 16">
+                  <path d="M15.5 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V8.753l-6.267 3.636c-.54.313-1.233-.066-1.233-.697v-2.94l-6.267 3.636C.693 12.703 0 12.324 0 11.693V4.308c0-.63.693-1.01 1.233-.696L7.5 7.248v-2.94c0-.63.693-1.01 1.233-.696L15 7.248V4a.5.5 0 0 1 .5-.5z"/>
+                </svg>
+              </a></li>
+      
+              <li class="nav-item mx-4"><a id="controlLoop" class="nav-link">
+      
+                <svg id="loopIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-repeat" viewBox="0 0 16 16">
+                  <path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192Zm3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z"/>
+                </svg>
+      
+              </a></li>
+            </ul>
+        
+          <div id="barContainer" class="d-flex justify-content-center align-items-center w-100">
+            <p id="currentTime" class="mx-1" style="color:white;">00:00</p>
+          <div class="progress d-flex w-50">
+           
+            <div id="audioBar" class="progress-bar .progress-bar-animated bg-white" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+           
+          </div>
+          <p id="time" class="mx-1" style="color:white;">00:00</p>
+        </div>
+         
+        </div>
+      </nav>
+    
     <div class="container d-flex justify-content-center align-items-center col-4">
       <!-- PLAYER AUDIO -->
       <audio id="music-player" controls>
-        <!-- Fallback content in caso di problemi con l'audio -->
+      <!-- Fallback content in caso di problemi con l'audio -->
         Il tuo browser non supporta l'elemento audio.
       </audio>
     </div>
+    
     <div class="col-4 text-end">
       <a href=""><i class="bi bi-mic-fill text-white me-2"></i></a>
       <a href=""><i class="bi bi-list text-white me-2"></i></a>
