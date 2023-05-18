@@ -41,15 +41,15 @@ window.onload = async () => {
 
                 // - - - - - - - - - - - - - - - manipolazione DOM per info album
                 const albumCover = document.getElementById('albumCover');
-                albumCover.innerHTML = `<img src="${cover}" class="img-fluid" alt="..." id="albumImg"></div>`;
+                albumCover.innerHTML = `<img src="${cover}" class="img-fluid w-100" alt="..." id="albumImg"></div>`;
 
                 const albumTitle = document.getElementById('albumTitle');
                 albumTitle.innerText = `${title}`;
 
                 const artistPicture = document.getElementById('artistPicture');
-                artistPicture.innerHTML = `<img src="${contributors[0].picture_small}" class="img-fluid rounded-circle me-1" alt="..." width="24"><span>${contributors[0].name}</span> - <span>${release_date.substr(0, 4)}</span> - <span> ${nb_tracks} brani</span>, <span>${albumDurationNew}</span>`;
+                artistPicture.innerHTML = `<img src="${contributors[0].picture_small}" class="img-fluid rounded-circle me-1" alt="..." width="24"><a href="artistPages.html?artist=${contributors[0].id}">${contributors[0].name}</a> - <span>${release_date.substr(0, 4)}</span> - <span> ${nb_tracks} brani</span>, <span>${albumDurationNew}</span>`;
 
-                            
+                
 
                 // - - - - - - - - - - - - - - - manipolazione DOM per inserimento brani
                 const songsContainer = document.getElementById('songsContainer');
@@ -58,6 +58,7 @@ window.onload = async () => {
                 console.log(tracksArray);
                 for (i = 0; i < tracksArray.length; i++) {
                     let songTitle = tracksArray[i].title;
+                    let songRank = tracksArray[i].rank;
                     let songDuration = tracksArray[i].duration;
                     console.log(songTitle);
                     console.log(songDuration);
@@ -82,7 +83,7 @@ window.onload = async () => {
                     songsContainer.innerHTML += `
                     <div class="col-12 mb-2">
                         <div class="row">
-                        <div class="col-1">${i+1}</div><div class="col-9">${songTitle}<br><span>${contributors[0].name}</span></div><div class="col-2">${songDurationNew}</div>
+                        <div class="col-1 text-end">${i+1}</div><div class="col-5">${songTitle}<br><span>${contributors[0].name}</span></div><div class="col-4">${songRank}</div><div class="col-2">${songDurationNew}</div>
                         </div>
                     </div>
                     `                  
