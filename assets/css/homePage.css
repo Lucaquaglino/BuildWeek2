@@ -1,6 +1,10 @@
 body {
   color: white;
+<<<<<<< Updated upstream
   background-color: #181818;
+=======
+  background-color: rgb(23, 23, 23);
+>>>>>>> Stashed changes
 }
 
 img {
@@ -74,7 +78,10 @@ img {
   color: white;
   border-radius: 10px;
   font-size: small;
+<<<<<<< Updated upstream
   opacity: 0.8;
+=======
+>>>>>>> Stashed changes
 }
 
 .hero-scritte {
@@ -120,8 +127,13 @@ p {
   background-color: rgb(0%, 0%, 0%);
 }
 
+<<<<<<< Updated upstream
 .colore-sfondo2 {
   background-color: #181818;
+=======
+.colore-sfondo2{
+    background-color: #181818;
+>>>>>>> Stashed changes
 }
 
 .album-sfondo {
@@ -173,6 +185,7 @@ p {
   display: none;
 }
 
+<<<<<<< Updated upstream
 .cardArtist {
   width: 30%;
 }
@@ -226,3 +239,24 @@ p {
   top: -2px;
   left: 11px;
 }
+=======
+.container-card {
+  position: relative;
+}
+
+.play-btn {
+  background-color: rgb(30, 215, 96);
+  display: none;
+  position: absolute;
+  top: 250px;
+  left: 250px;
+}
+
+.container-card:hover .play-btn {
+  display: block;
+}
+
+.container-card:hover {
+  cursor: pointer;
+}
+>>>>>>> Stashed changes
