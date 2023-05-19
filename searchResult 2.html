@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="assets/css/searchResult.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <div class="container-fluid row">
+
+
+      <!-- Navbar (colonna 1) -->
+
+
+      <nav class="nav flex-column col-2 bg-dark">
+        <a class="nav-link active" aria-current="page" href="#"
+          ><i class="bi bi-three-dots"></i
+        ></a>
+        <a class="nav-link" href="#"> <i class="bi bi-house-fill"></i> Home</a>
+        <input type="text" id="searchInput">
+        <button id="searchButton">Cerca</button>
+          <i class="bi bi-music-note-list"></i> Link</a
+        >
+        <hr />
+        <a class="nav-link" href="#">
+          <i class="bi bi-plus-square-fill"></i> Crea Playlist</a
+        >
+        <a class="nav-link" href="#">
+          <i class="bi bi-heart-fill"></i> Brani che ti piacciono</a
+        >
+        <a class="nav-link" href="#">
+          <i class="bi bi-bookmark-fill"></i> I tuoi episodi</a
+        >
+        <hr />
+      <div class="row">
+        <!-- ARRAY PLAYLIST -->
+        <div id="playlist"></div>
+      </div>
+      </nav>
+
+
+      <!-- Hero section (colonna 2) -->
+
+
+      <section class="col-8">
+
+        <div class="container">
+          <h1 class="display-4">(feat. Salmo)</h1>
+          <p>Fedez,Salmo</p>
+          <p>Ascolta il nuovo singolo di Fedez e Salmo!</p>
+          <a href="#" class="btn btn-success btn-lg">Play</a>
+          <a href="#" class="btn btn-dark btn-lg">Salva</a>
+          <i class="bi bi-three-dots"></i>
+        </div>
+
+    
+
+
+  <!-- Artist-section -->
+      <h2>Buonasera</h2>
+      <div id="album-container" class="row d-flex justify-content-around"></div>
+   
+     </section>
+
+
+       <!--Colonna a scomparsa (colonna 3) -->
+
+
+       <section class="col-2 mt-3">
+       <p>
+        <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+          Attività amici <i class="bi bi-person-fill-add"></i> <i class="bi bi-x"></i>
+        </button>
+      </p>
+      <div style="min-height: 120px;">
+        <div class="collapse collapse-horizontal" id="collapseWidthExample">
+          <div class="card card-body" style="width: 300px;">
+            This is some placeholder content for a horizontal collapse. It's hidden by default and shown when triggered.
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    </div>
+    <nav class="navbar fixed-bottom navbar-dark bg-dark">
+      <div class="container d-flex justify-content-center align-items-center">
+
+        <!-- PLAYER AUDIO -->
+        <audio id="music-player" controls>
+          <!-- Fallback content in caso di problemi con l'audio -->
+          Il tuo browser non supporta l'elemento audio.
+        </audio>
+      </div>
+    </nav>
+    
+    
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+      integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+      integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-cj1rJrslJP+TjsT/YMSnnV81+g9u4ULVjKbYHJzyVwOyIRxMzj2QflEBeLl84MiSPR5v5P5E5YKfx5ig3wq/Ew==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="assets/js/searchResult.js"></script>
+    
+  </body>
+</html>
