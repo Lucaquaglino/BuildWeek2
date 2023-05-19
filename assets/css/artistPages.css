@@ -139,7 +139,11 @@ margin-left: 10px;
     background: #555; 
   }
 
-  .colore-sfondo{
+  .colore-sfondo-c{
+    background: linear-gradient(to bottom,rgb(15%, 15%, 15%), rgb(0%, 0%, 0%));
+}
+
+.colore-sfondo{
     background-color: rgb(5%, 5%, 5%);
 }
 
@@ -189,7 +193,7 @@ h2{
     font-size: 1.4rem !important;
 }
 
-#hero > div{
+#hero > .div2{
     display: inline-block;
     position: absolute;
     bottom: 0;
@@ -310,7 +314,26 @@ section.colore-sfondo{
     background-color: rgb(5%, 5%, 5%);
 }
 
+#hero{
+    margin: 0px 0px;
+    width: 100%;
+}
+
+#second{
+    min-width: 240px;
+}
+
+.colore-sfondo2{
+    background-color: #181818;
+  }
+
 /*media query*/
+
+@media screen and (max-width: 1200px){
+    .rev{
+        flex-direction: column-reverse !important;
+    }
+}
 
 @media screen and (max-width: 768px){
     .album img{
@@ -325,5 +348,15 @@ section.colore-sfondo{
     #playlist-1 h6{
         font-size: 0.4rem !important;
     }
+
+    .l{
+        display: none;
+    }
+
+    .rev{
+        flex-direction: column-reverse !important;
+    }
 }
+
+
  

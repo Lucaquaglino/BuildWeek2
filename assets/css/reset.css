@@ -37,3 +37,42 @@ audio{
 .selected{
     background-color: rgba(100%, 100%, 100%, 0.2);
   }
+
+  #msg{
+    width: 60%;
+   background-color: rgba(255,255,255,0.2);
+   border-radius: 8px;
+   border: none;
+  }
+
+  #txt{
+    width:50%;
+  }
+
+  #txt input{
+    color: white;
+    background-color: transparent;
+    border: none;
+    font-size: 0.8rem;
+    max-width: 100%;
+  }
+
+  #navBack{
+    display: table;
+    height: 60px;
+    width: 60px;
+    background-color: rgba(50,50,50,0.7);
+    cursor: pointer;
+    transition: all 1s ease 0s;
+    
+  }
+
+  #navBack span{
+    display: table-cell;
+    margin: 0 auto;
+  }
+
+  #navBack:hover{
+    transform: scale(1.2);
+    background-color: #00ff0077;
+  }

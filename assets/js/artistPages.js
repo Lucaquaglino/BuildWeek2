@@ -216,12 +216,17 @@ function domElement(artistData, index){
            // playlist.start();
         }
             playlist.playFrom(index -1, artistData.preview);
+            updateMsg(artistData);
         
     };
 
  
 
     return col;
+}
+
+function updateMsg(data){
+    msg(`artista: ${data.artist.name} - brano: ${data.title_short}`);
 }
 
 function formatInt(int){
@@ -238,11 +243,15 @@ function updateList(index){
     for(let i = 0; i < list.length; i++){
         list.item(i).classList.remove('selected');
     }
+    let data;
     if(i && shuffle){
         list.item(i).classList.add('selected');
+        data = dataPlaylist[i];
     }else{
-        list.item(this.index).classList.add('selected');
+        list.item(index).classList.add('selected');
+        data = dataPlaylist[index];
     }
+    updateMsg(data);
 }
 
 var selected;
@@ -378,6 +387,7 @@ function Sound(source, volume, loop, indexCallback)
 
     this.back = function(){
         if(this.index == 0){
+            
             return;
         }
         this.index--;
@@ -394,6 +404,7 @@ function Sound(source, volume, loop, indexCallback)
             if(this.loop){
                 this.index = -1;
             }else{
+                removeMsg();
                 return;
             }
         }
@@ -536,3 +547,34 @@ playlistContainer.appendChild(playlistItem);
  
 }
 }
+
+function removeMsg(){
+    document.getElementById('txt').innerHTML = '';
+}
+
+function text(msg,ctrlwidth) {
+    msg = " --- "+msg+'                 ';
+    newmsg = msg
+    while (newmsg.length < ctrlwidth) {
+    newmsg += msg
+    }
+    let html = '<FORM NAME="Scrolltext">\
+        <CENTER><INPUT NAME="text" VALUE= "'+newmsg+'" SIZE= '+ctrlwidth+' ></CENTER>\
+        </FORM>';
+var bannerID = null
+    document.getElementById('txt').innerHTML = html;
+rollmsg()
+}
+
+function rollmsg() {
+    let NowMsg;
+    NowMsg = document.Scrolltext.text.value;
+    NowMsg = NowMsg.substring(1,NowMsg.length)+NowMsg.substring(0,1);
+    document.Scrolltext.text.value = NowMsg;
+    let bannerID = setTimeout("rollmsg()",300)//change the number 100 to represent the speed of the scroll. The larger the number the slower it moves
+    }
+
+    function msg(msg){
+        let ctrlwidth = "75"; //change this number to the length you would like the message box to be
+        text(msg,ctrlwidth);
+    }
